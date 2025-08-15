@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- The <head> section contains meta-information and resource links for the HTML document. -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Content Editor</title>
+    <!-- The <style> tag contains all the CSS rules for this page. -->
+    <style>
+        /* A banner to make it clear this is the editor page */
+        .editor-banner {
+            background-color: #ffc107; /* Amber color */
+            color: #333;
+            padding: 10px;
+            text-align: center;
+            font-weight: bold;
+            border: 2px solid #e6a200;
+            margin-bottom: 20px;
+            font-family: 'Courier New', Courier, monospace;
+        }
+
+        /* Basic styling for the body */
+        body {
+            font-family: 'Courier New', Courier, monospace;
+            margin: 20px;
+            background-color: #f4f4f4;
+        }
+
+        /* New container for the top controls */
+        .header-container {
+            display: flex; /* Use flexbox for easy alignment. */
+            justify-content: space-between; /* Keeps media box left, nav right */
+            position: relative; /* Set to relative so the absolutely positioned title is contained within it. */
+            align-items: center; /* Vertically align items in the middle. */
+            margin-bottom: 20px;
+        }
+
+        /* Container for the navigation dropdown */
+        .nav-container {
+            /* No specific styles needed here now */
+        }
+
+        /* New title style */
+        .header-title {
+            position: absolute; /* Position the title relative to the .header-container. */
+            left: 50%; /* Move the left edge of the title to the horizontal center. */
+            transform: translateX(-50%); /* Shift the title left by half its own width to perfectly center it. */
+            margin: 0;
+            font-size: 22px; /* Adjust size as needed */
+            color: #005A9C; /* Changed to a professional blue */
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1); /* Added a subtle shadow */
+        }
+
+        /* Container for the top content (image/video) */
+        .top-content {
+            border: 1px dashed #ccc;
+            padding: 10px 20px;
+            text-align: center;
+            background-color: #fff;
+            flex-grow: 1; /* Allow this box to expand and fill available horizontal space. */
+            margin-right: 20px; /* Add a gap between the media box and the dropdown */
+        }
+
+        /* --- Dropdown Menu Styling --- */
+        .dropdown-menu {
+            position: relative;
+            display: inline-block;
+        }
+
+        .dropdown-button {
+            background-color: transparent; /* No background color for the button itself. */
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            cursor: pointer;
+            padding: 8px;
+            display: flex; /* Use flexbox to stack the dots vertically. */
+            flex-direction: column; /* Stack items top-to-bottom. */
+            gap: 3px; /* Space between dots */
+        }
+
+        .dot {
+            width: 4px;
+            height: 4px;
+            background-color: #333;
+            border-radius: 50%;
+        }
+
+        .dropdown-content {
+            display: none; /* The menu is hidden by default. */
+            position: absolute; /* Position it relative to the .dropdown-menu container. */
+            right: 0; /* Align the right edge of the menu with the right edge of the button. */
+            background-color: #f9f9f9;
+            min-width: 180px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 1; /* Ensure the menu appears on top of other content. */
+            border-radius: 5px;
+        }
+
+        .dropdown-content a {
+            color: black;
+            padding: 12px 16px;
+            text-decoration: none; /* Remove underline from links. */
+            display: block; /* Make the entire area of the link clickable. */
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 15px;
+        }
+
+        .dropdown-content a:hover { background-color: #f1f1f1; } /* Style for links on hover. */
+        .show { display: block; } /* This class is toggled by JavaScript to show/hide the menu. */
+
+        /* Hide the original select element */
+        .page-selector {
+            display: none;
+        }
+
+        /* Main container for the table and controls */
+        .table-container {
+            background-color: #fff;
+            padding: 0;
+            border-radius: 0;
+            box-shadow: none;
+        }
+
+        /* Styling for the table */
+        table {
+            width: 100%; /* Make the table span the full width of its container. */
+            border-collapse: collapse; /* Merge cell borders for a cleaner look. */
+            margin-top: 15px;
+            table-layout: fixed; /* Important for controlling column widths consistently. */
+        }
+
+        /* Styling for table headers and cells */
+        th, td {
+            border: 1px solid #ddd;
+            padding: 6px;
+            text-align: left;
+            font-size: 13px;
+            vertical-align: top; /* Align cell content to the top. */
+            word-wrap: break-word;
+        }
+
+        /* Header row styling */
+        thead th {
+            background-color: #007bff;
+            color: white;
+        }
+
+        /* Alternating row colors (zebra-striping) for better readability. */
+        tbody tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        tbody tr:nth-child(odd) {
+            background-color: #eef;
+        }
+
+        /* Style for the currently selected row in edit mode. */
+        tr.selected {
+            background-color: #a0c4ff !important;
+            font-weight: bold;
+        }
+
+        /* Styling for the filter input fields */
+        .filter-input {
+            width: 95%; /* Make the input field nearly fill the cell. */
+            padding: 4px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 13px;
+            font-family: 'Courier New', Courier, monospace;
+        }
+
+        /* Width constraints for homepage columns (same as on zosinfo.html). */
+        .homepage-table th:nth-child(-n+3),
+        .homepage-table td:nth-child(-n+3) {
+            width: 10%;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 
+      A prominent banner at the top of the page to remind the user they are in a special mode
+      and to provide quick instructions for the main keyboard shortcuts.
+    -->
+    <div class="editor-banner">
+        EDITING MODE: Press F6 to enable editing. Press Esc to save changes.
+    </div>
+
+    <!-- The <header> element contains the top-level content for the editor page. -->
+    <header class="header-container">
+        <!-- Centered Title -->
+        <h1 class="header-title">zOS COMMON INFORMATION</h1>
+
+        <!-- Media content on the left -->
+        <div class="top-content">
+            <p>Your Media Content Here</p>
+        </div>
+        <!-- Dropdown on the right -->
+        <nav class="nav-container">
+            <!-- The original select is kept but hidden. script-private.js uses it to manage state. -->
+            <!-- This is a key part of the design: the user interacts with the three-dots menu, but
+                 the JavaScript logic still uses this standard <select> element to determine which
+                 data file to load. This simplifies the script and separates the UI from the logic. -->
+            <select class="page-selector" id="page-selector">
+                <option value="zosinfo.html">zOSINFO Data</option>
+                <option value="linkedin.html">LINKEDIN Data</option>
+            </select>
+            <!-- The new three-dot menu that the user sees -->
+            <div class="dropdown-menu">
+                <button class="dropdown-button" id="dropdown-button">
+                    <span class="dot"></span>
+                    <span class="dot"></span>
+                    <span class="dot"></span>
+                </button>
+                <div class="dropdown-content" id="dropdown-content">
+                    <a href="#" data-value="zosinfo.html">zOSINFO Data</a>
+                    <a href="#" data-value="linkedin.html">LINKEDIN Data</a>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- The <main> element contains the primary content: the data table. -->
+    <main>
+        <div class="table-container">
+            <!-- The table class will be dynamically set by the script based on the selected data source. -->
+            <table id="data-table" class="homepage-table">
+                <thead></thead>
+                <tbody></tbody>
+            </table>
+        </div>
+    </main>
+
+    <!-- Link to the PRIVATE JavaScript file that contains all the editing logic -->
+    <script src="script-private.js"></script>
+
+</body>
+</html>
+

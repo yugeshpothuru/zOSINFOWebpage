@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<!-- 
+  This is the main entry point for the website.
+  Its sole purpose is to redirect the user to the primary content page (`zosinfo.html`).
+  Web servers (like GoDaddy, Apache, etc.) are configured to look for `index.html` by default
+  when a user visits the root of a domain (e.g., https://www.your-site.com).
+  This file ensures that your site loads correctly without needing to change server configurations.
+-->
+<html lang="en">
+<head>
+    <!-- The <head> section contains meta-information about the HTML document. -->
+    <meta charset="UTF-8">
+    <title>Redirecting...</title>
+
+    <!-- 
+      This is the core of the redirection. 
+      - `http-equiv="refresh"` tells the browser to refresh the page.
+      - `content="0; URL=zosinfo.html"` specifies the refresh delay (0 seconds) and the destination URL.
+    -->
+    <meta http-equiv="refresh" content="0; URL=zosinfo.html">
+
+    <!-- The canonical link is important for Search Engine Optimization (SEO). It tells search engines
+         that `zosinfo.html` is the "main" or "canonical" version of this content, preventing
+         duplicate content penalties. -->
+    <link rel="canonical" href="zosinfo.html">
+</head>
+<body>
+    <!-- This paragraph provides a fallback link for users whose browsers might not support automatic redirection. -->
+    <p>If you are not redirected automatically, follow this <a href="zosinfo.html">link to the zOSINFO page</a>.</p>
+</body>
+</html>
+

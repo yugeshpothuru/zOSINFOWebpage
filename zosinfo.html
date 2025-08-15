@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- The <head> section contains meta-information and resource links for the HTML document. -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>zOSINFO</title>
+
+    <!-- The <style> tag contains all the CSS rules for this page -->
+    <style>
+        /* --- General Page Styling --- */
+        /* Basic styling for the body */
+        body {
+            font-family: 'Courier New', Courier, monospace;
+            margin: 20px;
+            background-color: #f4f4f4;
+        }
+
+        /* --- Header and Navigation Styling --- */
+        /* New container for the top controls */
+        .header-container {
+            display: flex; /* Use flexbox for easy alignment. */
+            justify-content: flex-end; /* Align the navigation menu to the right. */
+            position: relative; /* Set to relative so the absolutely positioned title is contained within it. */
+            align-items: center; /* Vertically align items in the middle. */
+            margin-bottom: 20px;
+        }
+
+        /* Container for the navigation dropdown (no specific styles needed here) */
+        .nav-container {
+            /* This container is used for semantic grouping of the navigation. */
+        }
+
+        /* New title style */
+        .header-title {
+            position: absolute; /* Position the title relative to the .header-container. */
+            left: 50%; /* Move the left edge of the title to the horizontal center. */
+            transform: translateX(-50%); /* Shift the title left by half its own width to perfectly center it. */
+            margin: 0;
+            font-size: 22px; /* Adjust size as needed */
+            color: #005A9C; /* Changed to a professional blue */
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1); /* Added a subtle shadow */
+        }
+
+        /* --- Dropdown Menu Styling --- */
+        .dropdown-menu {
+            position: relative; /* This is the anchor for the absolute-positioned dropdown content. */
+            display: inline-block; /* Allows the element to sit alongside others while having block properties. */
+        }
+
+        .dropdown-button {
+            background-color: transparent; /* No background color for the button itself. */
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            cursor: pointer;
+            padding: 8px;
+            display: flex; /* Use flexbox to stack the dots vertically. */
+            flex-direction: column; /* Stack items top-to-bottom. */
+            gap: 3px; /* Space between dots */
+        }
+
+        .dot {
+            width: 4px;
+            height: 4px;
+            background-color: #333;
+            border-radius: 50%;
+        }
+
+        .dropdown-content {
+            display: none; /* The menu is hidden by default. */
+            position: absolute; /* Position it relative to the .dropdown-menu container. */
+            right: 0; /* Align the right edge of the menu with the right edge of the button. */
+            background-color: #f9f9f9;
+            min-width: 180px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 1; /* Ensure the menu appears on top of other content. */
+            border-radius: 5px;
+        }
+
+        .dropdown-content a {
+            color: black;
+            padding: 12px 16px;
+            text-decoration: none; /* Remove underline from links. */
+            display: block; /* Make the entire area of the link clickable. */
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 15px;
+        }
+
+        /* Style for the links when hovered over. */
+        .dropdown-content a:hover { background-color: #f1f1f1; }
+        .show { display: block; } /* This class is toggled by JavaScript to show/hide the menu. */
+
+        /* --- Table and Content Styling --- */
+        /* Main container for the table and controls */
+        .table-container {
+            background-color: #fff;
+            /* Removing padding and shadow to eliminate the space around the table */
+            padding: 0;
+            border-radius: 0;
+            box-shadow: none;
+        }
+
+        /* Styling for the table */
+        table {
+            width: 100%; /* Make the table span the full width of its container. */
+            border-collapse: collapse; /* Merge cell borders for a cleaner look. */
+            margin-top: 15px;
+            table-layout: fixed; /* Important for controlling column widths consistently. */
+        }
+
+        /* Styling for table headers and cells */
+        th, td {
+            border: 1px solid #ddd;
+            padding: 6px; /* Reduced padding to make rows shorter */
+            text-align: left;
+            font-size: 13px; /* Reduced font size to fit more rows */
+            vertical-align: top; /* Align cell content to the top. */
+            word-wrap: break-word; /* Ensures wrapping */
+        }
+
+        /* Header row styling */
+        thead th {
+            background-color: #007bff;
+            color: white;
+        }
+
+        /* Alternating row colors (zebra-striping) for better readability. */
+        tbody tr:nth-child(even) {
+            background-color: #f9f9f9; /* First color */
+        }
+        tbody tr:nth-child(odd) {
+            background-color: #eef;   /* Second color */
+        }
+
+        /* Style for the selected row in edit mode */
+        tr.selected {
+            background-color: #a0c4ff !important; /* Use !important to override nth-child */
+            font-weight: bold;
+        }
+
+        /* Styling for the filter input fields inside the table header */
+        .filter-input {
+            width: 95%; /* Make the input field nearly fill the cell. */
+            padding: 4px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 13px;
+            font-family: 'Courier New', Courier, monospace;
+        }
+
+        /* Apply width constraints to the first 3 columns on the homepage table */
+        .homepage-table th:nth-child(-n+3),
+        .homepage-table td:nth-child(-n+3) {
+            /* Set a width based on character count. The 'info' column will
+               automatically take the remaining space due to table-layout:fixed */
+            width: 10%;
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- 
+      The <header> element is a semantic tag for the introductory content at the top of the page.
+      It contains the main title and the navigation menu.
+      The class "header-container" applies the flexbox layout defined in the CSS.
+    -->
+    <header class="header-container">
+        <!-- Centered Title -->
+        <h1 class="header-title">zOS COMMON INFORMATION</h1>
+        <!-- Dropdown on the right -->
+        <!-- The <nav> element is a semantic tag for navigation controls. -->
+        <nav class="nav-container">
+            <div class="dropdown-menu">
+                <button class="dropdown-button" id="dropdown-button">
+                    <span class="dot"></span>
+                    <span class="dot"></span>
+                    <span class="dot"></span>
+                </button>
+                <div class="dropdown-content" id="dropdown-content">
+                    <a href="index.html">zOSINFO</a> <!-- Points to the redirector page -->
+                    <a href="linkedin.html">LINKEDIN Article</a>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- The <main> element is a semantic tag for the primary content of the page. -->
+    <main>
+        <!-- This container holds the data table. -->
+        <div class="table-container">
+            <!-- 
+              This is the main table element.
+              The "id" is used by JavaScript to find and manipulate the table.
+              The "class" is used by CSS to apply specific styles for this page's table.
+            -->
+            <table id="data-table" class="homepage-table"> <!-- The class helps target this specific table with CSS. -->
+                <!-- Table headers and filter inputs will be generated by JavaScript -->
+                <thead></thead>
+                <!-- Table body rows will be populated by JavaScript -->
+                <tbody></tbody>
+            </table>
+        </div>
+    </main>
+
+    <!-- The <script> tag links to our PUBLIC JavaScript file. It's placed at the end of the body -->
+    <!-- so that the HTML elements are fully loaded before the script tries to access them. -->
+    <script src="script-public.js"></script>
+
+</body>
+</html>

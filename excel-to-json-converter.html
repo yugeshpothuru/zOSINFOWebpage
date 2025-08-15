@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Excel to JSON Converter</title>
+    <!-- Include the SheetJS library (xlsx.js) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            margin: 0;
+            padding: 30px;
+            background-color: #f4f7f6;
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        h1, h2 {
+            color: #2c3e50;
+        }
+        .container {
+            width: 100%;
+            max-width: 800px;
+            background-color: #ffffff;
+            padding: 25px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+        #file-input {
+            display: block;
+            margin-top: 10px;
+        }
+        #json-output {
+            width: 100%;
+            height: 400px;
+            margin-top: 15px;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 14px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            padding: 10px;
+            box-sizing: border-box;
+        }
+        #copy-btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            background-color: #28a745;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            margin-top: 10px;
+            transition: background-color 0.3s;
+        }
+        #copy-btn:hover {
+            background-color: #218838;
+        }
+        .instructions {
+            text-align: left;
+            line-height: 1.6;
+        }
+        .instructions code {
+            background-color: #eef;
+            padding: 2px 5px;
+            border-radius: 3px;
+            font-family: 'Courier New', Courier, monospace;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Excel to `home-data.json` Converter</h1>
+
+    <div class="container instructions">
+        <h2>Instructions</h2>
+        <ol>
+            <li><strong>Important:</strong> Make sure your Excel file's first row contains these exact column headers: <code>Vendor</code>, <code>component/product</code>, <code>type</code>, and <code>info</code>. Any other columns in the Excel file will be ignored.</li>
+            <li>Click "Choose File" and select your Excel (.xlsx, .xls, .csv) file.</li>
+            <li>The correctly formatted JSON will appear in the text box below.</li>
+            <li>Click the "Copy JSON" button and paste the content into your <code>home-data.json</code> file, replacing the old data.</li>
+        </ol>
+    </div>
+
+    <div class="container">
+        <label for="file-input"><strong>Select your Excel file:</strong></label>
+        <input type="file" id="file-input" accept=".xlsx, .xls, .csv">
+        
+        <textarea id="json-output" readonly placeholder="Your JSON output will appear here..."></textarea>
+        
+        <button id="copy-btn">Copy JSON</button>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const fileInput = document.getElementById('file-input');
+            const jsonOutput = document.getElementById('json-output');
+            const copyBtn = document.getElementById('copy-btn');
+
+            fileInput.addEventListener('change', (event) => {
+                const file = event.target.files[0];
+                if (!file) return;
+
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    try {
+                        const data = new Uint8Array(e.target.result);
+                        const workbook = XLSX.read(data, { type: 'array' });
+                        const firstSheetName = workbook.SheetNames[0];
+                        const worksheet = workbook.Sheets[firstSheetName];
+                        // Convert the entire sheet to JSON first.
+                        const jsonData = XLSX.utils.sheet_to_json(worksheet, { defval: "" });
+
+                        // Define the only headers we want to keep for the final JSON.
+                        const requiredHeaders = ['Vendor', 'component/product', 'type', 'info'];
+
+                        // Process the data to keep only the required columns and remove any others.
+                        const cleanedData = jsonData.map(row => {
+                            const newRow = {};
+                            requiredHeaders.forEach(header => {
+                                newRow[header] = row[header] !== undefined ? row[header] : "";
+                            });
+                            return newRow;
+                        });
+
+                        jsonOutput.value = JSON.stringify(cleanedData, null, 2);
+                    } catch (error) {
+                        alert("Error processing file. Please ensure it's a valid Excel/CSV and the format is correct.");
+                    }
+                };
+                reader.readAsArrayBuffer(file);
+            });
+
+            copyBtn.addEventListener('click', () => {
+                if (jsonOutput.value) {
+                    navigator.clipboard.writeText(jsonOutput.value).then(() => alert('JSON copied to clipboard!'), () => alert('Failed to copy text.'));
+                } else {
+                    alert('Nothing to copy.');
+                }
+            });
+        });
+    </script>
+
+</body>
+</html>
+
