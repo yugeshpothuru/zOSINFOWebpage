@@ -155,10 +155,18 @@
 
                     // The same logic as before to ensure correct JSON structure
                     const requiredHeaders = ['Sno', 'topic', 'link'];
+
+                    // Process the data, matching headers case-insensitively.
                     const cleanedData = jsonData.map(row => {
                         const newRow = {};
-                        requiredHeaders.forEach(header => {
-                            newRow[header] = row[header] !== undefined ? String(row[header]) : "";
+                        const rowKeys = Object.keys(row); // Get actual keys from the sheet, e.g., ['sno', 'Topic']
+
+                        requiredHeaders.forEach(requiredHeader => { // 'Sno', 'topic', 'link'
+                            // Find the key in the row that matches the required header, ignoring case.
+                            const actualKey = rowKeys.find(key => key.toLowerCase() === requiredHeader.toLowerCase());
+                            
+                            // Use the found key to get the value, or default to an empty string.
+                            newRow[requiredHeader] = (actualKey && row[actualKey] !== undefined) ? String(row[actualKey]) : "";
                         });
                         return newRow;
                     });
@@ -177,10 +185,10 @@
             convertBtn.addEventListener('click', convertSheet);
 
             copyBtn.addEventListener('click', () => {
-                if (jsonOutput.value) {
+                if (jsonOutput.value && !jsonOutput.value.startsWith('Error:')) {
                     navigator.clipboard.writeText(jsonOutput.value).then(() => alert('JSON copied to clipboard!'), () => alert('Failed to copy text.'));
                 } else {
-                    alert('Nothing to copy.');
+                    alert('Nothing to copy or an error is present.');
                 }
             });
         });
