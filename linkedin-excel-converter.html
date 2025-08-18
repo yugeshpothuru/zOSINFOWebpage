@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Excel to LinkedIn JSON Converter</title>
+    <title>Google Sheet to LinkedIn JSON Converter</title>
     <!-- Include the SheetJS library (xlsx.js) -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
     <style>
@@ -29,9 +29,27 @@
             border-radius: 8px;
             margin-bottom: 20px;
         }
-        #file-input {
-            display: block;
+        #sheet-url-input {
+            width: 100%;
+            padding: 8px;
             margin-top: 10px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        #convert-btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            background-color: #007bff;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            margin-top: 10px;
+            transition: background-color 0.3s;
+        }
+        #convert-btn:hover {
+            background-color: #0056b3;
         }
         #json-output {
             width: 100%;
@@ -72,21 +90,26 @@
 </head>
 <body>
 
-    <h1>Excel to `linkedin-data.json` Converter</h1>
+    <h1>Google Sheet to `linkedin-data.json` Converter</h1>
 
     <div class="container instructions">
         <h2>Instructions</h2>
         <ol>
-            <li><strong>Important:</strong> Make sure your Excel file's first row contains these exact column headers: <code>Sno</code>, <code>topic</code>, and <code>link</code>. Any other columns will be ignored.</li>
-            <li>Click "Choose File" and select your Excel (.xlsx, .xls, .csv) file.</li>
-            <li>The correctly formatted JSON will appear in the text box below.</li>
-            <li>Click the "Copy JSON" button and paste the content into your <code>linkedin-data.json</code> file, replacing the old data.</li>
+            <li>Open your Google Sheet.</li>
+            <li>In the menu, go to <strong>File &gt; Share &gt; Publish to web</strong>.</li>
+            <li>In the dialog, under the <strong>Link</strong> tab, ensure the correct sheet is selected.</li>
+            <li>In the dropdown next to it, select <strong>Comma-separated values (.csv)</strong>.</li>
+            <li>Click the green <strong>Publish</strong> button and confirm.</li>
+            <li>Copy the generated URL.</li>
+            <li>Paste the URL into the input box below and click "Convert".</li>
+            <li>The JSON will appear in the text box. Click "Copy JSON" and paste it into your <code>linkedin-data.json</code> file.</li>
         </ol>
     </div>
 
     <div class="container">
-        <label for="file-input"><strong>Select your Excel file:</strong></label>
-        <input type="file" id="file-input" accept=".xlsx, .xls, .csv">
+        <label for="sheet-url-input"><strong>Paste your Published Google Sheet URL:</strong></label>
+        <input type="text" id="sheet-url-input" placeholder="https://docs.google.com/spreadsheets/d/e/.../pub?output=csv">
+        <button id="convert-btn">Convert</button>
         
         <textarea id="json-output" readonly placeholder="Your JSON output will appear here..."></textarea>
         
@@ -95,42 +118,63 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            const fileInput = document.getElementById('file-input');
+            const urlInput = document.getElementById('sheet-url-input');
+            const convertBtn = document.getElementById('convert-btn');
             const jsonOutput = document.getElementById('json-output');
             const copyBtn = document.getElementById('copy-btn');
 
-            fileInput.addEventListener('change', (event) => {
-                const file = event.target.files[0];
-                if (!file) return;
+            const convertSheet = async () => {
+                const url = urlInput.value.trim();
+                if (!url) {
+                    alert('Please paste a Google Sheet URL.');
+                    return;
+                }
 
-                const reader = new FileReader();
-                reader.onload = (e) => {
-                    try {
-                        const data = new Uint8Array(e.target.result);
-                        const workbook = XLSX.read(data, { type: 'array' });
-                        const firstSheetName = workbook.SheetNames[0];
-                        const worksheet = workbook.Sheets[firstSheetName];
-                        const jsonData = XLSX.utils.sheet_to_json(worksheet, { defval: "" });
+                // A more flexible check for a published CSV link. It now handles URLs for single sheets.
+                if (!url.includes('/pub?') || !url.includes('output=csv')) {
+                     alert('Invalid URL. Please make sure you are using the "Publish to web" URL and have selected the CSV format.');
+                     return;
+                }
 
-                        const requiredHeaders = ['Sno', 'topic', 'link'];
+                convertBtn.disabled = true;
+                convertBtn.textContent = 'Converting...';
+                jsonOutput.value = 'Fetching data...';
 
-                        const cleanedData = jsonData.map(row => {
-                            const newRow = {};
-                            requiredHeaders.forEach(header => {
-                                // Ensure all values are converted to strings for consistency.
-                                newRow[header] = row[header] !== undefined ? String(row[header]) : "";
-                            });
-                            return newRow;
-                        });
-
-                        jsonOutput.value = JSON.stringify(cleanedData, null, 2);
-                    } catch (error) {
-                        console.error("Error processing file:", error);
-                        alert("Error processing file. Please ensure it's a valid Excel/CSV and the format is correct.");
+                try {
+                    const response = await fetch(url);
+                    if (!response.ok) {
+                        throw new Error(`Network error: ${response.statusText}`);
                     }
-                };
-                reader.readAsArrayBuffer(file);
-            });
+                    const csvData = await response.text();
+
+                    // Use SheetJS to parse the CSV data from the string
+                    const workbook = XLSX.read(csvData, { type: 'string' });
+                    const firstSheetName = workbook.SheetNames[0];
+                    const worksheet = workbook.Sheets[firstSheetName];
+                    const jsonData = XLSX.utils.sheet_to_json(worksheet, { defval: "" });
+
+                    // The same logic as before to ensure correct JSON structure
+                    const requiredHeaders = ['Sno', 'topic', 'link'];
+                    const cleanedData = jsonData.map(row => {
+                        const newRow = {};
+                        requiredHeaders.forEach(header => {
+                            newRow[header] = row[header] !== undefined ? String(row[header]) : "";
+                        });
+                        return newRow;
+                    });
+
+                    jsonOutput.value = JSON.stringify(cleanedData, null, 2);
+                } catch (error) {
+                    console.error("Error fetching or processing sheet:", error);
+                    alert("Failed to process the sheet. Please check the URL and your network connection. Ensure the sheet is correctly published.");
+                    jsonOutput.value = `Error: ${error.message}`;
+                } finally {
+                    convertBtn.disabled = false;
+                    convertBtn.textContent = 'Convert';
+                }
+            };
+
+            convertBtn.addEventListener('click', convertSheet);
 
             copyBtn.addEventListener('click', () => {
                 if (jsonOutput.value) {
