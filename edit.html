@@ -174,6 +174,24 @@
         .homepage-table td:nth-child(-n+3) {
             width: 10%;
         }
+
+        /* Apply specific width constraints to the linkedin table columns for better layout. */
+        .linkedin-table th:nth-child(1),
+        .linkedin-table td:nth-child(1) {
+            width: 4ch; /* Set a fixed, narrow width for 'Sno' (approx 4 characters) */
+        }
+
+        /* Set a fixed width for the 'topic' column */
+        .linkedin-table th:nth-child(2),
+        .linkedin-table td:nth-child(2) {
+            width: 30ch; /* Set width to approximately 30 characters */
+            max-width: 30ch; /* Ensure it doesn't exceed this width */
+        }
+
+        .linkedin-table th:nth-child(3),
+        .linkedin-table td:nth-child(3) {
+            width: 100%; /* The 'link' column will take up all available remaining space. */
+        }
     </style>
 </head>
 <body>
@@ -236,4 +254,3 @@
 
 </body>
 </html>
-

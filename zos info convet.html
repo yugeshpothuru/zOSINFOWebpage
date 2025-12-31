@@ -107,9 +107,8 @@
     </div>
 
     <div class="container">
-        <label for="sheet-url-input"><strong>Paste your Published Google Sheet URL:</strong></label>
-        <input type="text" id="sheet-url-input" placeholder="https://docs.google.com/spreadsheets/d/e/.../pub?output=csv">
-        <button id="convert-btn">Convert</button>
+        <label for="file-input"><strong>Select your Excel file:</strong></label>
+        <input type="file" id="file-input" accept=".xlsx, .xls, .csv">
         
         <textarea id="json-output" readonly placeholder="Your JSON output will appear here..."></textarea>
         
@@ -118,70 +117,51 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            const urlInput = document.getElementById('sheet-url-input');
-            const convertBtn = document.getElementById('convert-btn');
+            const fileInput = document.getElementById('file-input');
             const jsonOutput = document.getElementById('json-output');
             const copyBtn = document.getElementById('copy-btn');
 
-            const convertSheet = async () => {
-                const url = urlInput.value.trim();
-                if (!url) {
-                    alert('Please paste a Google Sheet URL.');
-                    return;
-                }
+            fileInput.addEventListener('change', (event) => {
+                const file = event.target.files[0];
+                if (!file) return;
 
-                if (!url.includes('/pub?') || !url.includes('output=csv')) {
-                     alert('Invalid URL. Please make sure you are using the "Publish to web" URL and have selected the CSV format.');
-                     return;
-                }
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    try {
+                        const data = new Uint8Array(e.target.result);
+                        const workbook = XLSX.read(data, { type: 'array' });
+                        const firstSheetName = workbook.SheetNames[0];
+                        const worksheet = workbook.Sheets[firstSheetName];
+                        // Convert the entire sheet to JSON first.
+                        const jsonData = XLSX.utils.sheet_to_json(worksheet, { defval: "" });
 
-                convertBtn.disabled = true;
-                convertBtn.textContent = 'Converting...';
-                jsonOutput.value = 'Fetching data...';
+                        // Define the only headers we want to keep for the final JSON.
+                        const requiredHeaders = ['Vendor', 'component/product', 'type', 'info'];
 
-                try {
-                    const response = await fetch(url);
-                    if (!response.ok) {
-                        throw new Error(`Network error: ${response.statusText}`);
-                    }
-                    const csvData = await response.text();
-
-                    const workbook = XLSX.read(csvData, { type: 'string' });
-                    const firstSheetName = workbook.SheetNames[0];
-                    const worksheet = workbook.Sheets[firstSheetName];
-                    const jsonData = XLSX.utils.sheet_to_json(worksheet, { defval: "" });
-
-                    const requiredHeaders = ['Vendor', 'component/product', 'type', 'info'];
-
-                    const cleanedData = jsonData.map(row => {
-                        const newRow = {};
-                        const rowKeys = Object.keys(row);
-
-                        requiredHeaders.forEach(requiredHeader => {
-                            const actualKey = rowKeys.find(key => key.toLowerCase() === requiredHeader.toLowerCase());
-                            newRow[requiredHeader] = (actualKey && row[actualKey] !== undefined) ? String(row[actualKey]) : "";
+                        // Process the data to keep only the required columns and remove any others.
+                        const cleanedData = jsonData.map(row => {
+                            const newRow = {};
+                            requiredHeaders.forEach(header => {
+                                // Ensure all values are converted to strings for consistency.
+                                newRow[header] = row[header] !== undefined ? String(row[header]) : "";
+                            });
+                            return newRow;
                         });
-                        return newRow;
-                    });
 
-                    jsonOutput.value = JSON.stringify(cleanedData, null, 2);
-                } catch (error) {
-                    console.error("Error fetching or processing sheet:", error);
-                    alert("Failed to process the sheet. Please check the URL and your network connection.");
-                    jsonOutput.value = `Error: ${error.message}`;
-                } finally {
-                    convertBtn.disabled = false;
-                    convertBtn.textContent = 'Convert';
-                }
-            };
-
-            convertBtn.addEventListener('click', convertSheet);
+                        jsonOutput.value = JSON.stringify(cleanedData, null, 2);
+                    } catch (error) {
+                        console.error("Error processing file:", error);
+                        alert("Error processing file. Please ensure it's a valid Excel/CSV and the format is correct.");
+                    }
+                };
+                reader.readAsArrayBuffer(file);
+            });
 
             copyBtn.addEventListener('click', () => {
-                if (jsonOutput.value && !jsonOutput.value.startsWith('Error:')) {
+                if (jsonOutput.value) {
                     navigator.clipboard.writeText(jsonOutput.value).then(() => alert('JSON copied to clipboard!'), () => alert('Failed to copy text.'));
                 } else {
-                    alert('Nothing to copy or an error is present.');
+                    alert('Nothing to copy.');
                 }
             });
         });
