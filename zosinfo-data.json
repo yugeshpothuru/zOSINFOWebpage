@@ -363,13 +363,43 @@
     "Vendor": "Open systems",
     "component/product": "containers",
     "type": "theory",
-    "info": "Containers are software that contains the necessary components to run in any environment without the need for physical components. It is portable and lightweight and streamlined to work in any environment.\nDcocker Container Image : A light weight standalone executable software package that has everything needed to run the application irrespective of the hardware.\nContainers : Build, ship, deploy, scale with ease -- is a technology that could help in building an appicaiton to be able to run on any system by packaging the required libraries and other dependent libraries for the application to run into one succinct manifest that can be version controlled, allowing for easy replication of your application across developers on your team and machines in your cluster. Each application may have multiple containers based on the requirements of the application.\nExamples : Amazon Elastic Container Service (Amazon ECS), Mirantis Kubernetes Engine (formerly Docker Enterprise), Kubernetes, IBM Cloud Kubernetes Service.\nDocker is one of the widely used container engine.\nSetup is Hardware (cpu-Hp, dell, windows) + Software(window, linux) + Container Engine (docker or other) + (continer- an application with libraries and dependencies along with it.)\nThey have light OS instead of a ful OS packaged with the application."
+    "info": "Containers are software that contains the necessary components to run in any environment without the need for physical components. It is portable and lightweight and streamlined to work in any environment.\nDcocker Container Image : A light weight standalone executable software package that has everything needed to run the application irrespective of the hardware.\nContainers : Build, ship, deploy, scale with ease -- is a technology that could help in building an appicaiton to be able to run on any system by packaging the required libraries and other dependent libraries for the application to run into one succinct manifest that can be version controlled, allowing for easy replication of your application across developers on your team and machines in your cluster. Each application may have multiple containers based on the requirements of the application.\nExamples : Amazon Elastic Container Service (Amazon ECS), Mirantis Kubernetes Engine (formerly Docker Enterprise), Kubernetes, IBM Cloud Kubernetes Service.\nDocker is one of the widely used container engine. -- A program that creats, ships and run applicaiton containers.\nSetup is Hardware (cpu-Hp, dell, windows) + Software(window, linux) + Container Engine (docker or other) + (continer- an application with libraries and dependencies along with it.)\nThey have light OS instead of a full OS packaged with the application."
   },
   {
     "Vendor": "open systems",
     "component/product": "containers",
     "type": "theory",
     "info": "No need to run full copy of an operating system.\n   Unlike VMs container run directly on the kernel of a hosting operating system, which makes it lightweight and fast.\nVersioning of Images : Necessary controls to easily rollback to previous verison.\nAgility to deploy new applications: \n\nApplication portability and Colocation of data (zcx will help to have the data from system developed applicaiton on z)."
+  },
+  {
+    "Vendor": "open systems",
+    "component/product": "containers",
+    "type": "theory",
+    "info": "Docker engine : runs on the base os and creates / deploy / runs containers  -- images. it is a client server architecture. With a daemon that can be deployed on a physical or virtual host.\nDocker file : has the commands/instruction to build an image/container.\nRegistry : local repository store, distribute and share docker images.\n\nhas 3 components : Server -- runs the docker deamon\n                   rest api -- \n                   CLI -- to enter commands to docker deamon.\n\nDocker works with images, storage(is allocated to the container when it is run), networks(to communicate)\n\nDocker has 5 network drivers -- Bridge(multiple containers on the same docker host).\n                             -- Host driver(isolates the network between container and host)\n                             -- Overlay -- when containers are running in different hosts.\n                             -- VLAN -- create mac addresses to make them look like physical systems."
+  },
+  {
+    "Vendor": "ibm",
+    "component/product": "zcx",
+    "type": "containers",
+    "info": "DTR -- Docker trusted registry -- enables customers to maintain a private internal docker registry. it is a commercial product.\nDocker engine runs on any zCX instance. uses kernel cgroups and namespaces for resource management isolation.\nDockerhub : Contains many popular docker packages. Single or multi arch.\nuse the docker pull command to pully the image directly into the local zCX directory."
+  },
+  {
+    "Vendor": "ibm",
+    "component/product": "zcx",
+    "type": "architecure",
+    "info": "With in the zCX address space, we ahve z/OS linux virtualizaiton layer. Allows communication to the linux kernel on zOS. Storage is provided through VSAM datasets. Network access is via high speed virtual samehost link to zOS tcp/ip protocal stack -- they are given a DVIPA that is manged by zOS.\nTHey are positioned above the bar 2gb memory.\nSMF records type 30 and 72 are used to collect data on zCX.\nMultiple zCX can be deployed on zOS.\nzCX virtualization layer manages storage, network and console access.\nzCX can be installed using a zOSMF work flow.\nAuthorized users can connect to the docker cli using an SSH client.\nProtrainer is a lightweight GUI for docker cli. available for docker hub.\nprometheus is used to monitor the overall server and container resource utilization. Grafana visualizes the data received from prometheus."
+  },
+  {
+    "Vendor": "ibm",
+    "component/product": "zcx",
+    "type": "Resources",
+    "info": "Ambitus -- open mainframe project -- github.com/ambitus/linux-containers\nzowe and ozsx\nredbooks.ibm.com/abstracts/sg248457.html"
+  },
+  {
+    "Vendor": "ibm",
+    "component/product": "zcx",
+    "type": "theory",
+    "info": "An application in a Docker container in a zCX started task cannot use cross memory to access another address space memory.\nAll Docker images can run in a zCX appliance regardless of architecture.\nIf you want to authenticate with LDAP, the LDAP Server need not be running on a distributed platform.\nThrough the Docker CLI, users cannot perform which of the following actions: cannot directly access the zOS datasets\nWhich is NOT a common reason for using zCX for deploying new applications on z/OS? COBOL and Assembler language support \nMemory is provisioned through the zCX address space by using private, above-the-2-GB-bar, fixed memory.\nAfter you run a docker image, it creates a docker container. All the applications and their environment run inside this container.\nWhat is the name of a zCX address space? zCX instance\nWhat is the tag supported by zCX docker images? : s390x\nAll zCX disk data is stored on z/OS VSAM files.\nDocker containers running inside a zCX instance have no way to access the memory or data contained in any other address space running in the z/OS LPAR.\nzCX is supported on IBM z14 machines or higher.\nA Dockerfile is a recipe file that contains instructions (or commands) and arguments that are used to define Docker images and containers. \nzCX instances must have access to the internet to pull/push images\n Docker registries for zCX need not be located within the zCX instance itself."
   },
   {
     "Vendor": "Broadcom",
@@ -873,7 +903,7 @@
     "Vendor": "ibm",
     "component/product": "dr",
     "type": "pprc",
-    "info": "when pprc is avaialble and we want to do a DR for few lpars in sysplex sharing DASD then it is better to do the stopping nd startng of PPRC at LCU level."
+    "info": "when pprc is avaialble and we want to do a DR for few lpars in sysplex sharing DASD then it is better to do the stopping and startng of PPRC at LCU level."
   },
   {
     "Vendor": "ibm",
@@ -1407,19 +1437,19 @@
     "Vendor": "ibm",
     "component/product": "jcl",
     "type": "idcams",
-    "info": "job to delete the members of a PDS if the PDS is held by other running tasks\n//A93LNZZ$ JOB TEST,'TEST',REGION=0M,CLASS=A, // MSGCLASS=T,PRTY=15,NOTIFY=&SYSUID //STEP1 EXEC PGM=IDCAMS //DD1 DD DISP=SHR,DSN=SYS1.FILEAID.V17R02.SXVJLOAD //SYSPRINT DD SYSOUT=A //SYSIN DD * DELETE - 'SYS1.FILEAID.V17R02.SXVJLOAD(*)' FILE(DD1)\ndelete 'sys2.tet.tet' purge -- delete a nonexpiring dataset."
+    "info": "job to delete the members of a PDS if the PDS is held by other running tasks\n//A93LNZZ$ JOB TEST,'TEST',REGION=0M,CLASS=A, \n// MSGCLASS=T,PRTY=15,NOTIFY=&SYSUID \n//STEP1 EXEC PGM=IDCAMS \n//DD1 DD DISP=SHR,DSN=SYS1.FILEAID.V17R02.SXVJLOAD \n//SYSPRINT DD SYSOUT=A \n//SYSIN DD * \nDELETE - 'SYS1.FILEAID.V17R02.SXVJLOAD(*)' FILE(DD1)\ndelete 'sys2.tet.tet' purge -- delete a nonexpiring dataset.\n"
   },
   {
     "Vendor": "ibm",
     "component/product": "jcl",
     "type": "idcams",
-    "info": "REPRO\n//STEP1 EXEC PGM=IDCAMS //DD1 DD DISP=SHR,DSN=SYS1.FILEAID.V17R02.SXVJLOAD //DD2 DD DISP=SHR,DSN=SYS8.COMPWARE.FAMVS.V17R02.SXVJLOAD //SYSPRINT DD SYSOUT=A //SYSIN DD * REPRO INFILE(DD2) OUTFILE(DD1) REPLACE"
+    "info": "REPRO\n//STEP1 EXEC PGM=IDCAMS \n//DD1 DD DISP=SHR,DSN=SYS1.FILEAID.V17R02.SXVJLOAD \n//DD2 DD DISP=SHR,DSN=SYS8.COMPWARE.FAMVS.V17R02.SXVJLOAD \n//SYSPRINT DD SYSOUT=A \n//SYSIN DD * REPRO INFILE(DD2) OUTFILE(DD1) REPLACE"
   },
   {
     "Vendor": "ibm",
     "component/product": "jcl",
     "type": "gdg",
-    "info": "GDG cretion\n//STEP1 EXEC PGM=IDCAMS //SYSPRINT DD SYSOUT=* //SYSIN DD * DEFINE GDG(NAME(SYS3.OPSCCHK.SYSR.COMDOUT) - LIMIT(7) - NOEMPTY - SCRATCH) /*"
+    "info": "GDG cretion\n//STEP1 EXEC PGM=IDCAMS \n//SYSPRINT DD SYSOUT=* \n//SYSIN DD * \nDEFINE GDG(NAME(SYS3.OPSCCHK.SYSR.COMDOUT) - \nLIMIT(7) - \nNOEMPTY - \nSCRATCH) \n/*"
   },
   {
     "Vendor": "ibm",
@@ -1490,7 +1520,7 @@
   {
     "Vendor": "ibm",
     "component/product": "jcl",
-    "type": "",
+    "type": "if condition",
     "info": "//MATEKSD JOB MSGLEVEL=(1,1),NOTIFY=&SYSUID\n //*\n //* EXAMPLE TO SHOW IF CONDITION IN JCL\n //*\n //STEP01 EXEC PGM=IFCOND1\n //IFSTMT1 IF STEP01.RC = 0 THEN\n //STEP02 EXEC PGM=IFCOND2\n //STEP03 EXEC PGM=IFCOND3\n // ENDIF\n //STEP04 EXEC PGM=IFCOND4\n //STEP05 EXEC PGM=IFCOND5\n //IFSTMT2 IF STEP05.RC = 04 THEN\n //STEP06 EXEC PGM=IFCOND6\n // ELSE\n //STEP07 EXEC PGM=IFCOND7\n // ENDIF\n //STEP08 EXEC PGM=IFCOND8\n //*"
   },
   {
@@ -1527,7 +1557,7 @@
     "Vendor": "ibm",
     "component/product": "jcl",
     "type": "command",
-    "info": "jes command can also be issued\n/*$D SPL //A93LNZZ$ JOB TEST,'TEST',REGION=0M,CLASS=A, // MSGCLASS=T,PRTY=15,NOTIFY=&SYSUID,SYSTEM=SYST //MVSCMD COMMAND 'D SYMBOLS' //STEP1 EXEC PGM=IEFBR14"
+    "info": "jes command can also be issued\n/*$D SPL \n//A93LNZZ$ JOB TEST,'TEST',REGION=0M,CLASS=A, \n// MSGCLASS=T,PRTY=15,NOTIFY=&SYSUID,SYSTEM=SYST \n//MVSCMD COMMAND 'D SYMBOLS' \n//STEP1 EXEC PGM=IEFBR14"
   },
   {
     "Vendor": "ibm",
@@ -1893,7 +1923,7 @@
     "Vendor": "ibm",
     "component/product": "jes2",
     "type": "scheduling",
-    "info": "//sched1 jobgroup //job1 gjob\n//job2 gjob // after name=job1,when=(rc=0)\n//job3 gjob // after name=job1,when=(rc=8)\n//job4 gjob // after name=job1 --- we can use after, before, concurrent\n// after name=job3\n//sched1 endgroup //job1 job .....\n// schedule jobgroup=sched1,\n// holduntil='+3:00'\n//step1 exec pgm=iefbr14\n//*\ndefines a group of jobs and they can scheduled based on few simple conditions."
+    "info": "//sched1 jobgroup \n//job1 gjob\n//job2 gjob // after name=job1,when=(rc=0)\n//job3 gjob // after name=job1,when=(rc=8)\n//job4 gjob // after name=job1 --- we can use after, before, concurrent\n// after name=job3\n//sched1 endgroup //job1 job .....\n// schedule jobgroup=sched1,\n// holduntil='+3:00'\n//step1 exec pgm=iefbr14\n//*\ndefines a group of jobs and they can scheduled based on few simple conditions."
   },
   {
     "Vendor": "ibm",
@@ -1969,14 +1999,14 @@
   },
   {
     "Vendor": "ibm",
-    "component/product": "linklist",
-    "type": "dynamic",
+    "component/product": "zOS",
+    "type": "Linklist",
     "info": "LNKLST UNDEFINE NAME(LNKLSTAA) --- to ensure the new linklist name is not available \nLNKLST DEFINE NAME(LNKLSTAA) COPYFROM(CURRENT) \nLNKLST ADD NAME(LNKLSTAA) DSN(SYS1.TS55.SDFHLINK.CHCK) VOLUME(TCH301) --- make any changes.\nLNKLST ACTIVATE NAME(LNKLSTAA) -- actiating the new linklst \nLNKLST UPDATE,JOB=* -- updating all active tasks to use the ative linklst \nLNKLST UNALLOCATE -- you cna use unallocate to free lnklst dataset from XCF enqueue \nLNKLST ADD NAME(LS01) DSN(SYS1.TS55.SDFHLINK.CHCK) VOLUME(TCH301) \nLNKLST ACTIVATE NAME(LS01) \nLNKLST UPDATE,JOB=* yOu can issue these commands one after the other in the log or you can create a member PROGxx in your PARMLIB concatenation and issue the command \n/SET PROG=xx to update."
   },
   {
     "Vendor": "ibm",
-    "component/product": "linklist",
-    "type": "dynamic",
+    "component/product": "zOS",
+    "type": "Linklist",
     "info": "/setprog LNKLST,DEFINE,NAME(LNKLSTAB),COPYFROM(CURRENT) \n/setprog LNKLST,DELETE,NAME(LNKLSTAB),DSN(SYS2.SYSVIEW.&CASYSV..CNM4BLOD)\n/setprog LNKLST,DELETE,NAME(LNKLSTAB),DSN(SYS2.SYSVIEW.R142.CNM4BLOD)\n/setprog lnklst,add,name(lnklstab),dsn(SYS2.SYSVIEW.&CASYSV..CNM4BLOD),volume(tch303)\n/setprog LNKLST,ACTIVATE,NAME(LNKLSTAB) \n/setprog LNKLST,UPDATE,JOB=* \n \n /setprog LNKLST,UNDEFINE,NAME(LNKLSTAB)"
   },
   {
@@ -2025,7 +2055,7 @@
     "Vendor": "ibm",
     "component/product": "mvs",
     "type": "utility",
-    "info": "ADRDSSU restore utility:\n//STEP1 EXEC PGM=ADRDSSU //DASDIN DD DISP=SHR,DSN=SYS5.CTS.IBMCDP.DUMP, // UNIT=SYSDA //DASDOUT DD DISP=SHR,VOL=SER=TCH304,UNIT=SYSDA //SYSPRINT DD SYSOUT=* //SYSIN DD * RESTORE INDD(DASDIN) OUTDD(DASDOUT) - DATASET(INCLUDE(IBM.CDP.**)) - CATALOG - RENAMEU(IBM.**, SYS2.**) /*"
+    "info": "ADRDSSU restore utility:\n//STEP1 EXEC PGM=ADRDSSU \n//DASDIN DD DISP=SHR,DSN=SYS5.CTS.IBMCDP.DUMP, \n// UNIT=SYSDA \n//DASDOUT DD DISP=SHR,VOL=SER=TCH304,UNIT=SYSDA \n//SYSPRINT DD SYSOUT=* \n//SYSIN DD * \nRESTORE INDD(DASDIN) OUTDD(DASDOUT) - \nDATASET(INCLUDE(IBM.CDP.**)) - \nCATALOG - \nRENAMEU(IBM.**, SYS2.**) \n/*"
   },
   {
     "Vendor": "ibm",
@@ -2139,7 +2169,7 @@
     "Vendor": "IBM",
     "component/product": "network",
     "type": "commands",
-    "info": "S NET,,,(01) -- this will start the net stc and it will look for ATCSTR00 in the VTAMLST DD concatenated datasets."
+    "info": "S NET,,,(01) -- this will start the net stc and it will look for ATCSTR01 in the VTAMLST DD concatenated datasets."
   },
   {
     "Vendor": "IBM",
@@ -2163,7 +2193,7 @@
     "Vendor": "IBM",
     "component/product": "network",
     "type": "startup",
-    "info": "start vtam --> looks for ATCSTRxx in the VTAMLST DD datasets and looks for ATCCONxx in ATCSTRxx and starts major nodes"
+    "info": "start vtam --> looks for ATCSTRxx in the VTAMLST DD datasets and looks for ATCCONxx based on the config=xx parm in ATCSTRxx and starts major nodes defined in ATCCONxx"
   },
   {
     "Vendor": "IBM",
@@ -2198,7 +2228,7 @@
   {
     "Vendor": "ibm",
     "component/product": "network",
-    "type": "",
+    "type": "commands",
     "info": "/MODIFY RESOLVER,DISPLAY -- to get the active TCPPARMS dataset."
   },
   {
@@ -2516,7 +2546,7 @@
   {
     "Vendor": "ibm",
     "component/product": "network",
-    "type": "",
+    "type": "commands",
     "info": "d net,cpcp -- adjacent connection"
   },
   {
@@ -4352,7 +4382,7 @@
   {
     "Vendor": "BMC",
     "component/product": "Subzero",
-    "type": "License",
+    "type": "theory",
     "info": "As per BMC we can have all CICS regions running from one lpar and DB2 regions running on another lpar. This would reduce the MLC cost of subsystems."
   },
   {
@@ -4371,7 +4401,7 @@
     "Vendor": "ibm",
     "component/product": "sysplex",
     "type": "couple",
-    "info": "utility to list the info. In couple datasets. //STEP1 EXEC PGM=IXCMIAPU //SYSPRINT DD SYSOUT=* //SYSIN DD * DATA TYPE(CFRM) REPORT(YES) -- CFRM couple dataset (HLQ, many different parms)\n/*\nDATA TYPE(LOGR) REPORT(YES) -- CFRM couple dataset (HLQ and all the logrstreams defined many different parms)"
+    "info": "utility to list the info. In couple datasets. \n//STEP1 EXEC PGM=IXCMIAPU \n//SYSPRINT DD SYSOUT=* \n//SYSIN DD * \nDATA TYPE(CFRM) REPORT(YES) -- CFRM couple dataset (HLQ, many different parms)\n/*\nDATA TYPE(LOGR) REPORT(YES) -- CFRM couple dataset (HLQ and all the logrstreams defined many different parms)"
   },
   {
     "Vendor": "ibm",
@@ -4389,7 +4419,7 @@
     "Vendor": "ibm",
     "component/product": "sysplex",
     "type": "utility",
-    "info": "To define a CFRM policy.\n//STEP20 EXEC PGM=IXCMIAPU\n//STDOUT DD STDERR=*\n//SYSABEND DD STDERR=*\n//SYSIN DD *\nDATA TYPE(CFRM) REPORT(YES) DEFINE POLICY NAME(POLCF1N1) REPLACE(YES)\nCF NAME(xxx\nSTRUCUTURE NAME(xxx\n.\n.\n.\n/*"
+    "info": "To define a CFRM policy.\n//STEP20 EXEC PGM=IXCMIAPU\n//STDOUT DD STDERR=*\n//SYSABEND DD STDERR=*\n//SYSIN DD *\nDATA TYPE(CFRM) REPORT(YES) DSN(SYS1.XXX.XXXX)    \nDEFINE POLICY NAME(POLCF1N1) REPLACE(YES)\nCF NAME(xxx)\nSTRUCUTURE NAME(xxx\n.\n.\n.\n/*\n\nNOTE : Use DSN only when you want to update the policy in a new DATASET and not the active dataset."
   },
   {
     "Vendor": "ibm",
@@ -5396,7 +5426,7 @@
   {
     "Vendor": "ibm",
     "component/product": "zos",
-    "type": "linlist",
+    "type": "linklist",
     "info": "You should not make any changes to libraries that are part on an active/in-use lnklst concatentaion. UNALLOCATE does not stop the active concatenation from being accessed/used.The 'SETPROG LNKLST,UNALLOCATE' command merely releases the XCFAS enqueue placed on the datasets in the concatenation. The concatenation remains in effect and continues to be used by the system. Originally, there was never an enqueue placed on the linklist concatenation. This led to the possibility of the actively used datasets being altered/removed from the system by other systems sharing the devices. To help prevent this, the XCFAS enqueue was added. One problem with this enqueue is that it prevents other systems in the sysplex from altering like named datasets on their system that are not part of their linklist concatenation. So to allow for this activity, the UNALLOCATE parameter was provided to release the enqueue, not the datasets, allowing you the ability to alter like named datasets that are not part of the linklist concatenation in the sysplex."
   },
   {
@@ -6066,7 +6096,7 @@
     "info": "we can use SMSV and SMSG to list the status of SMS volume nd SOMS storage groups that are active on the system."
   },
   {
-    "Vendor": "Open systems",
+    "Vendor": "Ibm",
     "component/product": "Ansible",
     "type": "Theory",
     "info": "It is 1) Declarative : no need to tell how to do but only what to do\n2) Agent Less : no need to run any task on the end machine to implement the task\n3) IDEMPOTENT : it keeps history and let us know if something has already been completed and do only tasks that are to be done.\n4) Community : it is an open source so we already have many play books that are developed and we can use them."
@@ -6325,7 +6355,7 @@
   },
   {
     "Vendor": "ibm",
-    "component/product": "zos",
+    "component/product": "hcd",
     "type": "iodf",
     "info": "Changing IODFxx to a different volume. and IPLing the system\n- Initialized UCBxxxx with label ABC123, (new volume)\n- Copied HCD.IODF72 to SYS0.IODF72 on ABC123 via the HCD panel option,\n- Allocated SYS0.IPLPARM on ABC123,\n- Copied LOADX* from SYS1.IPLPARM to SYS0.IPLPARM,\n- Updated LOADX* in SYS0.IPLPARM to use HLQ SYS0 instead of HCD for the IODF.\nThen I reIPLed the system with load parameter newucbX2, it came up OK."
   },
@@ -6501,7 +6531,7 @@
     "Vendor": "macro4",
     "component/product": "vtamprint",
     "type": "setup",
-    "info": ""
+    "info": "We need to run the LTP(long term plan job) once - CP(Current plan) as many days the system is behind todays date."
   },
   {
     "Vendor": "Broadcom",
@@ -6541,8 +6571,8 @@
   },
   {
     "Vendor": "IBM",
-    "component/product": "linklist",
-    "type": "commands",
+    "component/product": "zOS",
+    "type": "Linklist",
     "info": "to check for the current users of a lnklst\nd prog,lnklst,users,name=linklistname"
   },
   {
@@ -7729,7 +7759,7 @@
   },
   {
     "Vendor": "ibm",
-    "component/product": "zos ",
+    "component/product": "HCD/IODF",
     "type": "HCD/IODF",
     "info": "/activate iodfxx,test -- to test before activating a new IODF that is created.\n"
   },
@@ -7903,9 +7933,9 @@
   },
   {
     "Vendor": "ibm",
-    "component/product": "zos ",
+    "component/product": "HCD/IODF",
     "type": "HCD/IODF",
-    "info": "to invoke HCD panels in ISPF : please the following command \ntso ex 'SYS1.SCBDCLST(CBDCHCD)' -- ensure to have SYS1.SCBDCLST in  SYSPROC concatenation."
+    "info": "to invoke HCD panels in ISPF : please the following command \ntso ex 'SYS1.SCBDCLST(CBDCHCD)' -- ensure to have SYS1.SCBDCLST in  SYSPROC concatenation. there are aorund 4 clist that we need to copy."
   },
   {
     "Vendor": "ibm",
@@ -9417,7 +9447,7 @@
     "Vendor": "ibm",
     "component/product": "DR",
     "type": "GDPS",
-    "info": "GDPS Metro Hyper SWAP : GDPS HM : entry level solution. Extends the parallel sysplex availability ot disk sub systems.Only disk replicaiton including hyperswap(High availability feature that provides dual-site, active-active access to a volume). Single replicaiton. Continous availability within a DC. Manage flash copy relationships, FREEZE processing to ensure data consistency. Moniotoring and health checks to ensure the process and FREEZE capability. No automation capability using GDPS scripting.\nGDPS Metro (single leg and dual leg) : Provides automation, synchronous replication (Metro Mirror), HyperSwap and is tightly integrated with Parallel Sysplex. also known as PPRC. Syplex management, automation using scripts. LCP- locical corruption protection (cyber resiliency support). Ability to maintain 3 copies of data synchronously replicated. in one center or 2 center within metro distances. Support RTO of less than an hour and RPO of 0. Has the capability to add or reduce capacity. Introduce new couple datasets into sysplex, activating and deactivating lpars, loading and stopping systems. Supports multi vendor storage products (IBM, EMC and HDC).\nIBM Z Cyber Vault : Enables secure point-in-time copies of the critical source data and helps restore corrupted or deleted data."
+    "info": "GDPS Metro Hyper SWAP : GDPS HM : entry level solution. Extends the parallel sysplex availability to disk sub systems.Only disk replicaiton including hyperswap(High availability feature that provides dual-site, active-active access to a volume). Single replicaiton. Continous availability within a DC. Manage flash copy relationships, FREEZE processing to ensure data consistency. Moniotoring and health checks to ensure the process and FREEZE capability. No automation capability using GDPS scripting.\nGDPS Metro (single leg and dual leg) : Provides automation, synchronous replication (Metro Mirror), HyperSwap and is tightly integrated with Parallel Sysplex. also known as PPRC. Syplex management, automation using scripts. LCP- logical corruption protection (cyber resiliency support). Ability to maintain 3 copies of data synchronously replicated. in one center or 2 center within metro distances. Support RTO of less than an hour and RPO of 0. Has the capability to add or reduce capacity. Introduce new couple datasets into sysplex, activating and deactivating lpars, loading and stopping systems. Supports multi vendor storage products (IBM, EMC and HDC).\nIBM Z Cyber Vault : Enables secure point-in-time copies of the critical source data and helps restore corrupted or deleted data."
   },
   {
     "Vendor": "ibm",
@@ -9529,9 +9559,9 @@
   },
   {
     "Vendor": "ibm",
-    "component/product": "zsam (tadz)",
+    "component/product": "zsam",
     "type": "reports",
-    "info": "Steps to generate IBM TADz reports.\n\n1.        We need to know if the customer is running the IBM TADz tool (current name is IBM z Software asset management tool).\n2.        To you know you are running it or not check for task HSI* (default name) on the system.\n3.        If you are running you can access the tool using http://ipaddress of the system running the tool:9000 (9000 port is by default).\n4.        Once you launch the website you need userid and password to get in. Check the dataset HQL.REPSQLDB.PARMLIB(HSISANP1) for userids and passwords that are defined to the tool.\n5.        Once you login, we can generate different reports for product usage, products installed.\n"
+    "info": "Steps to generate IBM TADz reports.\n\n1.We need to know if the customer is running the IBM TADz tool (current name is IBM z Software asset management tool).\n2.To you know you are running it or not check for task HSI* (default name) on the system.\n3.If you are running you can access the tool using http://ipaddress of the system running the tool:9000 (9000 port is by default).\n4.Once you launch the website you need userid and password to get in. Check the dataset HQL.REPSQLDB.PARMLIB(HSISANP1) for userids and passwords that are defined to the tool.\n5.Once you login, we can generate different reports for product usage, products installed.\n"
   },
   {
     "Vendor": "ibm",
@@ -9597,7 +9627,7 @@
     "Vendor": "ibm",
     "component/product": "jes3",
     "type": "commands",
-    "info": "*inquiry,proclib -- to list the proclib concatenation.\n*Cancel,system name,jobnumber -- to cancel a job -*C,s,jn  (job number without J)"
+    "info": "*inquiry,proclib -- to list the proclib concatenation.\n*Cancel,S,jobnumber -- to cancel a job -*C,s,jn  (job number without J)"
   },
   {
     "Vendor": "ibm",
@@ -9933,7 +9963,7 @@
     "Vendor": "Broadcom",
     "component/product": "optimizer",
     "type": "report",
-    "info": "https://knowledge.broadcom.com/external/article?articleNumber=68481"
+    "info": "https://knowledge.broadcom.com/external/article?articleNumber=68481\n\n//******************************************************************** \n//**           MANAGEMENT REPORTING SYSTEM PROCEDURE                ** \n//******************************************************************** \n//CAIMRSII PROC OPTLIB='Public.Optimize2.CAILIB',   * LOAD LIB\n//             LPALIB='Public.Optimize2.CAILPA',    * LPA LIB\n//             LIBRARY='Public.User.LOADLIB',       * USER LIBRARY\n//             SYSOUT='*'                           * SYSOUT CLASS\n//MRS      EXEC PGM=CAOUMRS,REGION=256K\n//STEPLIB  DD  DISP=SHR,DSN=&OPTLIB\n//         DD  DISP=SHR,DSN=&LPALIB\n//SYSLIB   DD  DISP=SHR,DSN=&LIBRARY\n//SYSPRINT DD  SYSOUT=&SYSOUT\n//         PEND\n//STEP01  EXEC CAIMRSII"
   },
   {
     "Vendor": "ibm",
@@ -10507,7 +10537,7 @@
   },
   {
     "Vendor": "ibm",
-    "component/product": "tadz",
+    "component/product": "zsam",
     "type": "common",
     "info": "in general the stcs are HSI*"
   },
@@ -10921,7 +10951,7 @@
   },
   {
     "Vendor": "ibm",
-    "component/product": "tadz",
+    "component/product": "zsam",
     "type": "common",
     "info": "Dump to chekc on what pgms the jobs are using and calling it.\n//STEP1 EXEC PGM=HSIZPEEK\n//STEPLIB DD DISP=SHR,DSN=**.SHSImOD1\n//HSIZDATA DD DSN=xxxx.XX.XXX,DISP=(NEW,CATLG),UNIT=3390,SPACE=(CYL,(10,10),RLSE) \n\nWith this dump we can see job and the pgms they are using and the pgms they are calling."
   },
@@ -11167,7 +11197,7 @@
   },
   {
     "Vendor": "broadcom",
-    "component/product": "optimier",
+    "component/product": "optimizer",
     "type": "report",
     "info": "if we want to know which modules are compiled using optimizer then \n//MRS EXEC pGM=CAOUMRS\n//STEPLIB DD DISP=SHR,DSN=CCS load lib and lpalib\n//SYSLIB DD DISP=SHR,DSN=user program loadlib\n//SYPRINT DD SYSOUT=*"
   },
@@ -11565,7 +11595,7 @@
     "Vendor": "lrs",
     "component/product": "vps",
     "type": "theory",
-    "info": "CMOD:\n  LRS adds banners and PRSET if required based on information passed by PCX.  CMOD, or an external process is handling the transformation from DJDE\n  to AFPDS.  Any resources used are being picked up by this process, so JSL, FNT, FRM, IMG and LGO files (Xerox resources) are coming from a location \n  that CMOD or the external process has configured.\n\nLRS/PCL:\n  PCX is adding the banner file name and the PRSET name if necessary.  The filter is VPSX reads the necessary attributes, adds the banner and PRSET as \n  necessary and converts to an EBCDIC file.  The filter then calls the transform or Innovate/Mill and transforms the job from DJDE to PCL.  The Xerox \n  resources (JSL, FNT, FRM, IMG and LGO) that are used by LRS are on the VPSX server.\n"
+    "info": "CMOD:\n  LRS adds banners and PRSET if required based on information passed by PCX.  CMOD, or an external process is handling the transformation from DJDE\n  to AFPDS.  Any resources used are being picked up by this process, so JSL, FNT, FRM, IMG and LGO files (Xerox resources) are coming from a location \n  that CMOD or the external process has configured.\n\nLRS/PCX:\n  PCX is adding the banner file name and the PRSET name if necessary.  The filter is VPSX reads the necessary attributes, adds the banner and PRSET as \n  necessary and converts to an EBCDIC file.  The filter then calls the transform or Innovate/Mill and transforms the job from DJDE to PCL.  The Xerox \n  resources (JSL, FNT, FRM, IMG and LGO) that are used by LRS are on the VPSX server.\n"
   },
   {
     "Vendor": "xerox",
@@ -11649,7 +11679,7 @@
     "Vendor": "ibm",
     "component/product": "jes3",
     "type": "sysout",
-    "info": "disply sysout definition\n*i,SC=class name"
+    "info": "display sysout definition\n*i,SC=class name"
   },
   {
     "Vendor": "lrs",
@@ -11662,5 +11692,1469 @@
     "component/product": "XPAf",
     "type": "defaults/FORMDEF and PAGEDEF",
     "info": "THe formdef and pagedef members are available in FDEFLIB and PDEFLIB DD statements in the task JCL."
+  },
+  {
+    "Vendor": "Ibm",
+    "component/product": "Izws",
+    "type": "dataset format",
+    "info": "All IzWS related datasets (jcl libraries)(install libraries) have be PDSE's and not PDS. we may run into hung status, if PDS are being used. As PDS may get multiple extents and IzWS may find it difficutlt to get the EOF of the PDS file."
+  },
+  {
+    "Vendor": "ibm",
+    "component/product": "rACF",
+    "type": "THEORY",
+    "info": "The interface that the resource manager commonly uses to request RACF to perform security checking is called the RACROUTE interface."
+  },
+  {
+    "Vendor": "ibm",
+    "component/product": "rACF",
+    "type": "THEORY",
+    "info": "Resources are categorized into resource classes that identify the type of resource to be protected."
+  },
+  {
+    "Vendor": "ibm",
+    "component/product": "rACF",
+    "type": "THEORY",
+    "info": "ADDUSER command to add a user to RACF DB\nADDGROUP command to add a group to RACF DB\nconnect user group(XXXX) -- connecting user to group XXXX"
+  },
+  {
+    "Vendor": "ibm",
+    "component/product": "rACF",
+    "type": "THEORY",
+    "info": "Although RACF stores passphrases of up to 100 characters, TSO/E did not support them until z/OS V1R10. Prior releases only support one to eight character passwords. The later releases of RACF can also use other methods of authenticating users, including PassTickets or digital certificates in client/server environments."
+  },
+  {
+    "Vendor": "ibm",
+    "component/product": "rACF",
+    "type": "THEORY",
+    "info": "Password is encrypted and stored in RACFDB."
+  },
+  {
+    "Vendor": "ibm",
+    "component/product": "rACF",
+    "type": "THEORY",
+    "info": "Every profile would have a UACC (access to all users) and individual user/group access list"
+  },
+  {
+    "Vendor": "ibm",
+    "component/product": "rACF",
+    "type": "THEORY",
+    "info": "RACF maintains statistical information about access attempts to resources, including the date and time, the number of times that a user logs on to a system, and the number of times a specific resource is accessed by a user. as SMF records"
+  },
+  {
+    "Vendor": "ibm",
+    "component/product": "rACF",
+    "type": "THEORY",
+    "info": "Many RACF commands that enable the security administrator to query or update profiles in the RACF database can be issued from foreground TSO/E."
+  },
+  {
+    "Vendor": "ibm",
+    "component/product": "rACF",
+    "type": "THEORY",
+    "info": "Commands can be categorized as \nMaintaining user profiles\nMaintaining and connecting to group profiles\nMaintaining data set profiles\nMaintaining general resource profiles\nSearching and reporting on profile\n\nThe standard RACF interfaces are:\n\nTSO/E commands\nISPF panels\nOperator commands\nBatch processing\nRACROUTE macro"
+  },
+  {
+    "Vendor": "ibm",
+    "component/product": "rACF",
+    "type": "THEORY",
+    "info": "RACF has a facility called RACF Remote Sharing Facility (RRSF) which enables RACF commands to be issued to a remote z/OS system. Commands can even be issued by using a different userid to the one under which you are currently logged on. Commands like these, which run on a remote system, are called directed commands.\nADDUSER YUGI NAME('Yugesh P') AT(SYSB.IBMUSER)  -- aT(node.user)\n\nThe capabilities of each individual node in the network may vary and are defined via a combination of the RRSF parameter library and the definition of RACF profiles within the resource class RRSFDATA.\n\nFor each RRSF node that any other node is aware of, there is a pair of workspace data sets, known as inward bound propagated updates (INMSG) and outward bound updates (OUTMSG) files. These are VSAM data sets where RACF stores profile changes and other updates while they are being transmitted between nodes in the RRSF network. They stay in these files until the receiving node of any propagated command informs RACF that the update has been processed; at that point, RACF deletes these pending updates from its respective workspace data sets. \n\nmanaging your RRSF network involves using the RRSFDATA resource class definitions to control propagation of updates between the network's various nodes.\n\nBoth the SET and TARGET commands help establish the configuration of nodes in an RRSF network."
+  },
+  {
+    "Vendor": "IBM",
+    "component/product": "Racf",
+    "type": "Batch interface",
+    "info": "//STEP1 EXEC PGM=IKJEFT01\n//SYSTSPRT DD SYSOUT=*\n//SYSTSIN DD *\nLISTUSER    --- comands\n/*"
+  },
+  {
+    "Vendor": "IBM",
+    "component/product": "Racf",
+    "type": "theory",
+    "info": "when issuing the RACF commands in CONSOLE or in SDSF use the subsystem character before the command \n>RVARY LIST\n>LU yugi"
+  },
+  {
+    "Vendor": "IBM",
+    "component/product": "Racf",
+    "type": "theory",
+    "info": "The RACROUTE macro is the interface to RACF for z/OS resource managers, and it is also the programming interface used to invoke RACF security functions from an application program.\n\nThe RACROUTE macro invokes the system authorization facility (SAF) router. If RACF is present, the SAF router directs control to the RACF router. If RACF is also active, the RACF router then invokes RACF."
+  },
+  {
+    "Vendor": "IBM",
+    "component/product": "Racf",
+    "type": "theory",
+    "info": "with zOS V3.1 many RACF related display options are provided in SDSF."
+  },
+  {
+    "Vendor": "IBm",
+    "component/product": "racf",
+    "type": "Rexx ",
+    "info": "000001 /* REXX TO OBTAIN INFO FOR USER - GREG */\n000002\n000003 MYRC=IRRXUTIL(\"EXTRACT\",\"USER\",GREG,\"RACFU\",\"\",\"TRUE\")\n000004 /* OUTPUT */\n000005 SAY \"THERE ARE\" RACFU.0 \"SEGMENTS\"\n000006 DO X = 1 TO RACFU.0\n000007  SEG = RACFU.X\n000008  SAY \"SEGMENT INFO:\" SEG\n000009     DO Z = 1 TO RACFU.SEG.0\n000010        STEM = RACFU.SEG.Z\n000011         DO I = 1 TO RACFU.SEG.STEM.0\n000012            SAY SEG \":\" RACFU.SEG.Z \":\" RACFU.SEG.STEM.I\n000013         END\n000014     END\n000015 END\n000016 EXIT"
+  },
+  {
+    "Vendor": "IBm",
+    "component/product": "racf",
+    "type": "theory",
+    "info": " The RACF database itself is likely to be a VSAM linear data set, a direction that IBM has taken from z/OS 2.5 in order to take advantage of data encryption capabilities."
+  },
+  {
+    "Vendor": "IBm",
+    "component/product": "racf",
+    "type": "theory",
+    "info": "superuser capability of a RACF administrator, known as the attribute SPECIAL, can be assigned in two ways, either as system-SPECIAL, which applies to the entire system, or as group-SPECIAL, which applies only within the scope of a particular RACF group."
+  },
+  {
+    "Vendor": "IBm",
+    "component/product": "racf",
+    "type": "theory",
+    "info": "The group profiles can be defined to be like tree structure with hierachy"
+  },
+  {
+    "Vendor": "IBm",
+    "component/product": "racf",
+    "type": "theory",
+    "info": "A group name cannot be a user name and a username cannot be a group name"
+  },
+  {
+    "Vendor": "IBm",
+    "component/product": "racf",
+    "type": "Creation",
+    "info": "DB is created using an IDCAMS IBM utility for VSAM linear dataset with no secondary space, REUSE, SHARE(3.3)\nTo initialize the da use the utility IRRMIN00\nThe RACTABLE member in SYS1.SAMPLIB is used update the DATASET Name table or RACF module ICHRDSNT to have the names of the primary and secondary DB's. or we can use the parmlib IRRPRMxx to provide the RACF DB names and other options."
+  },
+  {
+    "Vendor": "IBm",
+    "component/product": "racf",
+    "type": "Copy",
+    "info": "//* JCL to make a copy of RACF DB.                                                           \n//STEP1     EXEC PGM=IRRUT400,PARM='LOCKINPUT,FREESPACE(20)' \n//SYSPRINT  DD SYSOUT=A                                      \n//INDD1     DD DSN=IBMUSER.RACFPRM.VSAM,DISP=SHR             \n//OUTDD1    DD DSN=IBMUSER.RACFCOP.VSAM,DISP=SHR             \n//STEP2     EXEC PGM=IRRUT400,PARM='UNLOCKINPUT'             \n//SYSPRINT  DD SYSOUT=A                                      \n//INDD1     DD DSN=IBMUSER.RACFCOP.VSAM,DISP=OLD             \n/*"
+  },
+  {
+    "Vendor": "IBm",
+    "component/product": "racf",
+    "type": "Theory",
+    "info": "Systems programmer has to decide and ensure consideration of which RACF definitions are to be cached and how they are cached for optimal performance of RACF."
+  },
+  {
+    "Vendor": "IBm",
+    "component/product": "racf",
+    "type": "Theory",
+    "info": "SETROPTS RACLIST(class name) -- this enables the general rosource class to be available in zOS memory. And any changes that we make to profiles in \"class name\" we need to SETROPTS RACLIST(class-name) REFRESH. to refresh the memory.\n\nThe RACLIST option loads all profiles in a general resource class into memory – this is the most effective and simplest way to improve RACF performance."
+  },
+  {
+    "Vendor": "IBm",
+    "component/product": "racf",
+    "type": "Global",
+    "info": "The use of global access checking is another feature that can improve RACF performance. It is reserved for resources that are accessed frequently and consists of a global access checking table that is maintained in storage.\n\nRDEFINE GLOBAL DATASET\nRALTER GLOBAL DATASET ADDMEM('SYS1.BRODCAST'/UPDATE)\nSETROPTS GLOBAL(DATASET)\nSETROPS GLOBAL(DATASET) REFRESH"
+  },
+  {
+    "Vendor": "IBm",
+    "component/product": "racf",
+    "type": "Theory",
+    "info": "the AUDIT parm on each profile determines what needs to be logged when ever the profile is invoked for access requirement."
+  },
+  {
+    "Vendor": "IBm",
+    "component/product": "racf",
+    "type": "Performance",
+    "info": "it is possible to enhance I/O to the RACF database by splitting the database across two or more actual data sets, each still having an associated primary and backup pair – this is done by defining entries to the RACF range table, by assembling the ICHRRNG module and placing this in the system linklist.\n\nICHRRNG   CSECT\n        DC      F'4'\nPART1     DC      XL44'00'\n          DC      AL1(1)\nPART2     DC      XL1'C5',XL43'00'  class starts with 'E'\n          DC      AL1(2)\nPART3     DC      XL1'C9',XL43'00'  class starts with 'I'\n          DC      AL1(3)\nPART4     DC      XL1'D8',XL43'00'  class starts with 'Q'\n          DC      AL1(4)\n          END     ICHRRNG\n\nIn this example, the database has been split into four parts. Note that this information can also be entered in the RACF PARMLIB member IRRPRMXX."
+  },
+  {
+    "Vendor": "IBm",
+    "component/product": "racf",
+    "type": "JCL",
+    "info": "//* JCL to verify teh RACF DB\n//STEP1 EXEC PGM=IRRUT200\n//SYSRACF DD DSN=\n//SYSUT1 DD UNIT=SYSDA,SPACE=(CYL,(10)),\n//       DCB=(LRECL=4096,RECFM=F)\n//SYSUT2 DD SYSOUT=*\n//SYSPRINT DD SYSOUT=*\n//SYSIN DD * \n  INDEX\n  MAP\n  END"
+  },
+  {
+    "Vendor": "IBm",
+    "component/product": "racf",
+    "type": "JCL",
+    "info": "//* RACF SYNC BACKUP\n//STEP1 EXEC PGM=IRRUT200,REGION=0M,PARM='ACTIVATE'\n//SYSRACF DD DISP=SHR,DSN=SYS1.RACF.PRI\n//SYSUT1 DD DISP=SHR,DSN=SYS1.RACF.SEC\n//SYSUT2 DD SYSOUT=*\n\nwe need to issue the RVARY command before running this JCL to make the backup dataset inactive.\nRVARY INACTIVE,DATASET(SYS1.RACF.SEC)\n\nIn the event of a RACF failure, the first option to attempt recovery is to switch from the primary to the backup database using the RVARY command as follows:\n\nRVARY SWITCH\n\nAfter switching processing from the damaged primary database to the active backup database, the next step is usually to copy the now working backup database over the top of the broken primary, using the JCL shown here. After completion of the copy, the data sets are the same, but in the wrong roles – the old primary is now the backup and vice versa.\n\nTo correct this, two RVARY commands are required, first switch the data set roles again, which will inactivate the now properly allocated backup, then finally reactivate the backup:\n\nRVARY SWITCH\nRVARY ACTIVE, DATASET(SYS1.RACFBKP1)"
+  },
+  {
+    "Vendor": "IBm",
+    "component/product": "racf",
+    "type": "JCL",
+    "info": "//* RACF SYNC BACKUP RENAME\n//STEP1 EXEC PGM=IRRUT200,REGION=0M,PARM='RENAMEACTIVATE('SYS1.RACF.BKUPCOPY'\n//SYSRACF DD DISP=SHR,DSN=SYS1.RACF.PRI\n//SYSUT1 DD DISP=SHR,DSN=SYS1.RACF.NEW\n//SYSUT2 DD SYSOUT=*\n\nThis would copy teh RACF.PRI to RACF.NEW and rename the exsisitng RACF BACKUp DB to SYS1.RACF.BKUPCOPY and SYS1.RACF.NEW to the backup name."
+  },
+  {
+    "Vendor": "IBm",
+    "component/product": "racf",
+    "type": "JCL ",
+    "info": "//* split racf db into multiple datasets\n//STEP1 EXEC PGM=IRRUT400,PARM='NOLOCKINPUT,RANGE(IRRPRM02)'\n//INDD1 DD DISP=SHR,DSN=SYS1.RACF.SEC\n//OUTDD1 DD DISP=SHR,DSN=SYS1.RACF.SEC1\n//OUTDD2 DD DISP=SHR,DSN=SYS1.RACF.SEC2\n//RANGEDD DD DISP=SHR,DSN=SYS1.PARMLIB -- where IRRPRM02 is residing."
+  },
+  {
+    "Vendor": "IBm",
+    "component/product": "racf",
+    "type": "JCL ",
+    "info": "//* Merge multiple racf db into one datasets\n//STEP1 EXEC PGM=IRRUT400,PARM=('NOLOCKINPUT,DUPDA FREE(10)',ALIGN)\n//INDD1 DD DISP=SHR,DSN=SYS1.RACF.SEC1\n//INDD2 DD DISP=SHR,DSN=SYS1.RACF.SEC2\n//OUTDD1 DD DISP=SHR,DSN=SYS1.RACF.SEC\n"
+  },
+  {
+    "Vendor": "IBm",
+    "component/product": "racf",
+    "type": "JCL",
+    "info": "//* to list a sepcific group or user\n//STEP1 EXEC PGM=IRRUT100\n//SYSUT1 DD UNIT=SYSDA,SPACE=(TRk,(5,1))\n//SYSPRINT DD SYSOUT=*\n//SYSIN DD *\nGROUP1 \nYUGI\nEND"
+  },
+  {
+    "Vendor": "IBm",
+    "component/product": "racf",
+    "type": "JCL",
+    "info": "//DBUNLD   JOB  ,'DATA BASE UNLOAD',REGION=0M    \n//*                                              \n//IRRDBU00 EXEC PGM=IRRDBU00,PARM='NOLOCKINPUT'  \n//SYSPRINT DD  SYSOUT=*                          \n//INDD1    DD  DISP=SHR,DSN=SYS1.RACFPRM1        \n//OUTDD    DD  DSN=IBMUSER.RACF.IRRDBU00,DISP=OLD\n//SYSUDUMP DD  SYSOUT=* "
+  },
+  {
+    "Vendor": "IBm",
+    "component/product": "racf",
+    "type": "JCL",
+    "info": "//RACFRE   JOB ,'REMOVE ID',NOTIFY=IBMUSER       \n//*                                              \n//CLEANUP  EXEC PGM=IRRRID00,REGION=0M           \n//SYSPRINT DD SYSOUT=*                           \n//SYSOUT   DD SYSOUT=*                           \n//SORTOUT  DD UNIT=SYSALLDA,SPACE=(CYL,(5,5))    \n//SYSUT1   DD UNIT=SYSALLDA,SPACE=(CYL,(3,5))    \n//INDD     DD DSN=IBMUSER.RACF.IRRDBU00,DISP=OLD \n//OUTDD    DD DSN=IBMUSER.IRRRID00.CLIST,DISP=OLD\n//SYSIN    DD DUMMY                              \n/* \n\nThe IRRRID00 utility is used to remove all references to group IDs and user IDs that no longer exist in or are about to be removed from the RACF database. It uses a data set created by the database unload utility (IRRDBU00) as input and produces output that can be used as input to a CLIST program, which is shown at the bottom of this page. Note that the SYSIN DD statement can be modified to contain a specific list of target user IDs or groups."
+  },
+  {
+    "Vendor": "IBm",
+    "component/product": "racf",
+    "type": "Theory",
+    "info": "In respect of reporting on RACF, there are three main sources of data that require to be analyzed in order to provide a full coverage of the security posture of the z/OS system overall. These are the following:\n\nThe RACF database and RACF system settings\nThe configuration of the z/OS infrastructure, particularly the components known as the Trusted Computing Base (TCB)\nThe System Management Facility (SMF) audit records written by the z/OS during all system activity"
+  },
+  {
+    "Vendor": "IBM",
+    "component/product": "racf",
+    "type": "compliance",
+    "info": "https://www.stigviewer.com/stigs/ibm_zos_racf   -- DOD guidelines for security on mainframes"
+  },
+  {
+    "Vendor": "IBM",
+    "component/product": "racf",
+    "type": "command",
+    "info": "SETOPTS LIST -- lists all of the options of racf settings"
+  },
+  {
+    "Vendor": "IBM",
+    "component/product": "Racf",
+    "type": "JCL",
+    "info": "//JOBcard -- DSMON utility \n//* Utility to list configuation of RACF and zOS.\n//* Has lot of reports that can be produced\n//STEP1 EXEC PGM=ICHDSM00\n//SYSPRINT DD SYSOUT=*\n//SYSUT2 DD SYSOUT=*\n//SYSIN DD *\nLINECOUNT 55\nFUNCTION ALL\n\nThe DSMON reporting utility provides several reports documenting the configuration of z/OS files and settings critical to assurance of system integrity. The Trusted Computing Base components of z/OS"
+  },
+  {
+    "Vendor": "ibm",
+    "component/product": "Racf",
+    "type": "utility",
+    "info": "//SMFAUD   JOB  ,'SMF AUDIT',REGION=0M                 \n//*                                                    \n//SMFDUMP  EXEC PGM=IFASMFDP                           \n//SYSPRINT DD SYSOUT=A                                 \n//ADUPRINT DD SYSOUT=A                                 \n//OUTDD    DD DSN=PROD.SMF.IRRADU00,DISP=SHR        \n//SMFDATA  DD DSN=SYS1.SMF.DATA,DISP=SHR             \n//SMFOUT   DD DUMMY                                    \n//SYSIN    DD *                                        \nINDD(SMFDATA,OPTIONS(DUMP))                            \nOUTDD(SMFOUT,TYPE(000:255))                            \nABEND(NORETRY)                                         \nUSER2(IRRADU00)                                        \nUSER3(IRRADU86)\n\nThe RACF SMF audit data unload utility program is used to extract RACF relevant records from the standard SMF datastream. The following are the records processed:\n\nType 30 – Job initiation\nType 80 – RACF resource access\nType 81 – RACF initialization\nType 83 – Various subtypes related to other RACF activity such as by WebSphere, LDAP, key management, and so on"
+  },
+  {
+    "Vendor": "ibm",
+    "component/product": "Racf",
+    "type": "utility",
+    "info": "//AUDITREP JOB  ,'RACFICE REPORTS',REGION=0M     \n//*                                              \n//         JCLLIB ORDER=IBMUSER.RACFICE.PROCLIB  \n//         SET  DBUDATA=IBMUSER.RACF.IRRDBU00    \n//         SET  ADUDATA=IBMUSER.SMF.IRRADU00     \n//         SET  ICECNTL=IBMUSER.RACFICE.CNTL     \n//*                                              \n//STEP1    EXEC RACFICE,REPORT=SELU\n\nReports such as the following are invoked using the REPORT= parameter specified on the EXEC RACFICE procedure invocation:\n\nCCMD – Count of commands issued by users\nLOGF – Users with multiple password violations\nSELU – All activity by specified users\nSPEC – Activity by users who have the SPECIAL attribute\nVIOL – Access violations reported\nIt is relatively easy to add your own variations on the RACFICE reports to suit your installation's needs."
+  },
+  {
+    "Vendor": "ibm",
+    "component/product": "racf",
+    "type": "utility",
+    "info": "The IRRADU00 utility, audit data unload, is used to format raw SMF data ready for processing and analysis of system activity."
+  },
+  {
+    "Vendor": "ibm",
+    "component/product": "racf",
+    "type": "command",
+    "info": "In order to discover the name of the RACF databases in use, issue the RVARY command as shown here. The output contains a list of the database data set names in use, and their allocation as either primary or backup databases. Use this information to modify the JCL that you will execute in subsequent stages when working with the RACF databases."
+  },
+  {
+    "Vendor": "ibm",
+    "component/product": "racf",
+    "type": "theory",
+    "info": "SETROPTS RVARYPW(STATUS(password))\nSETROPTS RVARYPW(SWITCH(password))\n\n*04 ICH702A ENTER PASSWORD TO DEACTIVATE RACF JOB=IBMUSER  USER=IBMUSER\nR 04 SUPPRESSED                                                   \nIEE600I REPLY TO 04 IS;SUPPRESSED \n\nfor every RVARY command it is protected by a password. SYSadm has to document this password."
+  },
+  {
+    "Vendor": "ibm",
+    "component/product": "racf",
+    "type": "Theory",
+    "info": "SETROPTS LIST output has\nPROTECTALL switch; if not in FAIL mode, it effectively disables RACF for resources not covered by a RACF profile.\n\nAnother important option is the INACTIVE USERIDS setting, which revokes users who have not used the system after a specified period of time – usually set at 30 to 40 days for most enterprise installations. It is also important to avoid activating settings such as the AUTOMATIC DATASET PROTECTION (ADSP) option, which can unnecessarily add discrete RACF profiles, and to avoid deactivating settings such as LIST OF GROUPS ACCESS CHECKING, which can have a very negative impact on most established RACF infrastructures.\n\n"
+  },
+  {
+    "Vendor": "ibm",
+    "component/product": "racf",
+    "type": "Theory",
+    "info": "SETROPTS LIST \n\nDEFAULT RVARY PASSWORD IS IN EFFECT FOR THE SWITCH FUNCTION.\nDEFAULT RVARY PASSWORD IS IN EFFECT FOR THE STATUS FUNCTION.\n\nThe last two lines show whether the installation has specified a password for the RVARY SWITCH and STATUS commands. If no default is supplied, these passwords remain at a value of YES – this should always be changed. With the encryption algorithm, IBM guidelines suggest using the Key Derivation Function with Advanced Encryption Standard (KDFAES) algorithm. KDFAES encrypted passwords are many thousands of times more resistant to brute force password cracking than passwords encrypted with the previous Data Encryption Standard (DES) algorithm.\n\nADDCREATOR IS NOT IN EFFECT\nAnother important setting in this area is the ADDCREATOR setting. It is highly advised that no modern RACF implementation retain this setting at its default value; SETR NOADDCREATOR should be used to prevent placing the RACF administrator's user ID within the access list of profiles they create."
+  },
+  {
+    "Vendor": "ibm",
+    "component/product": "racf",
+    "type": "Theory",
+    "info": "SETROPTS best practises\nActivate SAUDIT, OPERAUDIT and CMODVOL  -- produces smf records for access / failures\nActivate GENCMD, GENERIC attributes\nDeactivating deprecated options -- ADDCREATEOR, JES-XBMALLRACF and JES-EARLYVERIFY\nUpdating the rvary status and switch password.\ndont acitave Automatic dataset protection(ADSP)"
+  },
+  {
+    "Vendor": "ibm",
+    "component/product": "racf",
+    "type": "Parmlib  ",
+    "info": "Recent z/OS releases have added support for a new IPL parameter, RACF=XX, to be specified within the PARMLIB(IEASYSnn) member in use during system IPL. The specification of RACF=XX within IEASYS causes the RACF subsystem to read from the PARMLIB concatenation a corresponding member name of IRRPRMxx, where xx comes from the IPL parameter.\n\nWithin this new IRRPRMxx PARMLIB member, you may specify settings that replace configuration items ICHRDSNT (data set name table) and ICHRRNG (RACF range table), as well as the configurable items of the flag byte found in the ICHRDSNT. it is a recommended best practice for migration away from the assembler macro based approaches previously used.\n\nif we dont specify the name of the racfdb on PRIMARYDSN parm then while IPLIng the system would request for the name to be specified."
+  },
+  {
+    "Vendor": "ibm",
+    "component/product": "racf",
+    "type": "parmlib",
+    "info": "We can specifcy the options like\nDatabase_optins\n   SYSPLEX(NOCOMMUNICATIONS/COMMUNICATIONS/DATASHAREING) -- when operating between lpars and sysplex.\nRANGETABLE\n   START(00 HEX) ENTRYNUMBER(1)\n   START(C5 HEX) ENTRYNUMBER(2)\n   START(C9 HEX) ENTRYNUMBER(3)\n"
+  },
+  {
+    "Vendor": "ibm",
+    "component/product": "racf",
+    "type": "theory",
+    "info": "RACF provides a facility where each installation may create RACF classes unique to its requirements. These custom classes can be used for authorization checks by in-house written applications or by third-party provided products (TPPs). TPPs will usually provide some documentation detailing the requirements for the classes they recommend; otherwise, the systems programmer must work with the application developers to define the classes' requirements.\n\nthese new classes would be added using profiles in the RACF class CDT – known as the class descriptor table class"
+  },
+  {
+    "Vendor": "ibm",
+    "component/product": "racf",
+    "type": "theory",
+    "info": "SETROPTS CLASSACT(CDT) RACLIST(CDT) \n\nRDEFINE CDT AUTHCHK UACC(NONE)\n CDTINFO(DEFAULTUACC(NONE) FIRST(ALPHA) MAXLENGTH(50)\n OTHER(ALPHA,SPECIAL) POSIT(300) RACLIST(REQUIRED))\n\nSETROPTS RACLIST(CDT) REFRESH\n\nRDEFINE AUTHCHK HIGH.VALUE UACC(NONE)\nRDEFINE AUTHCHK LOW.VALUE UACC(NONE)\n\nSETROPTS CLASSACT(AUTHCHK) RACLIST(AUTHCHK)\n\nIn the example shown here, a new RACF class with class name AUTHCHK is being created. Note that in the RDEFINE command, this is represented as a profile in the RACF class CDT.\n\nProfiles in the class CDT have a special meaning: the profiles themselves are not used for authorization checking, and they instead define a list of extensions to RACF provided as custom RACF classes. See the segment CDTINFO that is part of the profile named AUTHCHK; this is where the detailed behavior of the class is defined. For example, this class must be RACLISTed, as specified in the parameter RACLIST(REQUIRED).\n\nThe final two RDEFINE commands actually use the new AUTHCHK class, defining two profiles that may now be referenced for authorization checking by the locally written application.\n\nProfiles in the class CDT use the CDTINFO segment to contain data to be used in defining the behavior of their associated RACF custom class."
+  },
+  {
+    "Vendor": "ibm",
+    "component/product": "racf",
+    "type": "theory",
+    "info": "Another RACF class that acts as a lookup table, rather than as an authorization checking set of resources, is the class STARTED. Definitions made in this class replace the deprecated RACF started procedures table ICHRIN03. It is recommended as best practice that, if your site still maintains an ICHRIN03 table, it contains only the handful of tasks necessary to establish a basic IPL as a fallback or recovery mechanism; all other definitions should be placed in the STARTED class within RACF, including those within the ICHRIN03 table.\n\nThe old macros for started task definition and RACF custom class definition were ICHRIN03 and ICHERCDE respectively; these are replaced by profiles in the classes STARTED and CDT."
+  },
+  {
+    "Vendor": "ibm",
+    "component/product": "racf",
+    "type": "theory",
+    "info": "The CFIELD class is the latest addition to RACF functionality utilizing this style of RACF profiles as metadata. Profiles defined in the CFIELD class are used as custom fields within the CSDATA segment available for use in RACF user and group profiles.\n\nRDEFINE CFIELD USER.CSDATA.EXT ....\n\nThe following commands display the status of your custom field definitions:\n\nIRRDPI00 LIST(USER CSDATA) \nIRRDPI00 LIST(GROUP CSDATA)\n"
+  },
+  {
+    "Vendor": "ibm",
+    "component/product": "racf",
+    "type": "command",
+    "info": "ALTUSER userid PASSWORD(new-pass) EXPIRED -- sets a new password for a user\nALTUSER userid NOPASSWORD -- used generally for STC userids.\nALTUSER userid PHRASE(new-phase) EXPIRED -- sets a password phrase for a user.\n\nALTUSER userid REVOKE AT(NODEYZ) -- if RRSF is active we can revoke a user on another node.\nALTUSER userid RESUME ONLYAT(NODEYZ) -- resume a user at another node.\n\nThe AT and ONLYAT command options differ in how RRSF subsequently handles the command. If a command is issued with ONLYAT, RRSF will not honor local command propagation settings for that specific command. However, if a command is issued with the AT keyword, it is subject to further propagation from the targeted node, depending on how propagation has been configured there."
+  },
+  {
+    "Vendor": "ibm",
+    "component/product": "racf",
+    "type": "password",
+    "info": "a one-time authentication token can be generated by an authorized application, either within or without the z/OS host system. This is known as PassTicket authentication and involves the generation of a time-dependent token that is offered in place of a password.\n\nThe algorithm for PassTicket generation is publicly documented and requires the following four elements of input: the user ID, an application name, the time of day (TOD), and a shared secret key. With the shared secret key – 16 hexadecimal characters in length – which is known to both the RACF system and the application generating the PassTicket, these pieces of information are used to create an 8-character long PassTicket that is cryptographically unique\n\nSETROPTS CLASSACT(PKTDATA) RACLIST(PKTDATA) -- PKTDATA class needs to be activated for passkeys.\nRDEFINE PKTDATA my-application SSIGNON(KEYMASKED(your key)) UACC(NONE) -- application that generates the passkey."
+  },
+  {
+    "Vendor": "ibm",
+    "component/product": "racf",
+    "type": "password",
+    "info": "passtickets can alos be generated using a java script. IRRRacf.jar in unix in /usr/include/java_classes\n\nString UserID = System.getProperty(\"user.name\");\nIRRPassTicket generator = new IRRPassTicket();\nString PassTicket = generator.generate(UserID,Applid);"
+  },
+  {
+    "Vendor": "ibm",
+    "component/product": "racf",
+    "type": "Utilties",
+    "info": "1. IRRXUTIL is a rexx function that we can use to interact with RACF db.\n2. The RACROUTE macro is invoked within assembler programs and can provide a wide variety of security functions(Audit record generation, authorization checking, defining, extracting and lsiting racf definitions, sign on processing).\n3. RACF callable services. These are a set of utility programs mostly intended for z/OS's Unix System Services subsystem to use (check file acces, file owner, UID and gid, and few more)."
+  },
+  {
+    "Vendor": "ibm",
+    "component/product": "racf",
+    "type": "rexx",
+    "info": "/* REXX -- to lust defintins*/\nrc=IRRXUTIL(\"EXTRACT\",\"FACILITY\",\"BPX.DAEMON\",\"R_ADMIN\",\"\",\"FALSE\")\nsay \"Owner: \"R_ADMIN.BASE.OWNER.1\nSay \"ACL:\"\ndo x=1 to R_ADMIN.BASE.ACLCNT.REPEATCOUNT\n    Say \" \"||R_ADMIN.BASE.ACLID.x||\":\"||R_ADMIN.BASE.ACLACS.x\nend\n\nThis REXX code will first list the RACF owner of the FACILITY class general resource profile BPX.DAEMON. Then it will list each access list entry associated with the profile showing the user ID or group, as well as the access level they possess.\n\nIn order to use the IRRXUTIL function, you must have access to the relevant profiles in the FACILITY class. You must also have the proper RACF authorization to retrieve the user, group, general resource, or SETROPTS information using the following normal RACF commands:\n\nIRR.RADMIN.LISTUSER\nIRR.RADMIN.LISTGRP\nIRR.RADMIN.RLIST\nIRR.RADMIN.SETROPTS.LIST"
+  },
+  {
+    "Vendor": "ibm",
+    "component/product": "racf",
+    "type": "rexx",
+    "info": "The CFIELD, STARTED, CDT classes  are not used for authentication, but instead provide RACF with information about other configurable components of the z/OS and RACF system"
+  },
+  {
+    "Vendor": "ibm",
+    "component/product": "racf",
+    "type": "rexx",
+    "info": "The RACROUTE assembler macro is the basic underlying building block upon which RACF callable services, R_admin, and ultimately IRRXUTIL are all built."
+  },
+  {
+    "Vendor": "ibm",
+    "component/product": "memory ",
+    "type": "storage",
+    "info": "programming languages like cobol, pl/1, c,c++, rexx, java get storage in memory allocated automatically."
+  },
+  {
+    "Vendor": "ibm",
+    "component/product": "memory ",
+    "type": "storage",
+    "info": "1. COBOL can request for storage using the ALLOCATE statement and FREE statement to relase the allocated space or the space is released once the step executing the ALLOCATE statement is completed. We can compile pgms with PARM='LP(64)' to allocate the storage above the bar while running the IGYCRCTL compile pgm. or use the LOC statement to allocate storage above BAR.\n2. Assembler programs can use GETMAIN and STORAGE macros to allocate storage. DSECTs can be used to map the storage areas. We need to use FREEMAIN and RELEASE macros to release the storage allocated correspondingly. GETMAIN or FREEMAIN can only get storage below the BAR for anything above BAR we need to use IARV64 and IARST64 macros.\n3. C/C++ use malloc() and calloc() to allocate storage(below the bar 2GB. user free() to release the storage.malloc64() and calloc64() is used to get storage above the BAR(2GB).\n\nAll programming languages that execute under language environment can also use LE services to request storage. the storage is automatically released when the step allocating the storage is completed in all programming running under LE."
+  },
+  {
+    "Vendor": "ibm",
+    "component/product": "memory ",
+    "type": "storage",
+    "info": "When a program accesses an area of storage, it must tell z/OS the location of the storage being written or read: it must tell z/OS the storage address.\n\nIn high-level languages, this is done automatically, but with assembler programs, this address must still be provided to z/OS."
+  },
+  {
+    "Vendor": "ibm",
+    "component/product": "memory ",
+    "type": "storage",
+    "info": "--In MVS operating system the registers were of 24 bit length and so they were able to store a max of 16,777,215 addresses that is 16MB. PSW size is 64bits or 8bytes\n--IBM introduced MVS Extended Architecture (MVS/XA). This version of MVS used larger registers, and addresses: 32 bits. to overcome the issue for programs that were using the 24bit addr. PSW size is 64bits or 8bytes. IBM used one of the 32 bits available in PSW as an addressing mode bit and the remaining 31 bits for address. PGMs in 31bit mode can address upto 2GB of memory\n--By the 2000s, 2GBs was not enough. So, IBM again increased the size of registers, and addresses, to 64 bits. max of 16EB. PSW size is 128bits or 16bytes. PSW section of next instruciton also increased from 32bit to 64bit. \n\n--Memory below 16MB is called a below the line and any thing above 16MB till 2GB is above the line or below BAR\n--Memory above 2GB till 16EB is called above the BAR"
+  },
+  {
+    "Vendor": "ibm",
+    "component/product": "memory ",
+    "type": "storage",
+    "info": "When binding a program, a programmer can specify whether the program gets control in 24-bit or 31-bit mode. This is achieved using the AMODE binder parameter in JCL parameters, or SYSLIN. compile/linedit step."
+  },
+  {
+    "Vendor": "ibm",
+    "component/product": "memory ",
+    "type": "storage",
+    "info": "A linkage assist module is created so as to ensure the 24bit pgms communicate with the 31bit pgms."
+  },
+  {
+    "Vendor": "ibm",
+    "component/product": "memory ",
+    "type": "storage",
+    "info": "RMODE parmeter while compile/linkedit will tell where to load the pgm for execution. RMODE=24 for below the line and RMODE=31 for above the line and RMODE=ANY for anywhre but 24bit needs to be allocated below the line."
+  },
+  {
+    "Vendor": "ibm",
+    "component/product": "memory ",
+    "type": "storage",
+    "info": "Assemble LOAD(L) instruciton will  load 32 bits from a 31bit or 24 bit address into a register but LOAD(LG) instruction will load 64bits from a 64 bit address into the register. COBOL pgms cannot be laoded above the bar."
+  },
+  {
+    "Vendor": "ibm",
+    "component/product": "memory ",
+    "type": "storage",
+    "info": "Users and administrators can set a limit on the amount of storage a program can request in a number of different ways. This stops an application program allocating too much storage, and affecting other programs running in z/OS.\n\nSMFPRMxx can be used to limit the default MAX MEMLIMIT that can be use.\nIEFUSI exit can be used to limit the REGION and MEMLIMIT sizes used in a JCL.\nREGION parm in the JCL can be used to specificy the storage requirement for the JCL.\nMEMLIMIT can be used to limit the amount of storage above the bar\nfor TSO users the region parameter can be supplied with the user definition in the security product."
+  },
+  {
+    "Vendor": "ibm",
+    "component/product": "memory ",
+    "type": "storage",
+    "info": "Address space areas\n-----------------------------16 EB--------------------------------------------------------------------------------\nPriavte(high user)\nShared area\nPrivate(low user)\nReserved for zOS -- 2 to 4gb\n-----------------------------2 GB BAR-----------------------------------------------------------------------------\nELSQA\nExtended Private  -- can be used by 31bit and 64-bit pgms. shared by all addr spaces. each addr spaces has its own.\nECSA\nELPA\nESQA\nExtended Nucleus\n------------------------------16 MB line---------------------------------------------------------------------------\nNUCLEUS -- pgms that make the zOS\nSQA -- system queue area. shared by all address spaces. size is set in IEASYSxx parmlib.\nLPA -- link pack area. to store fequently used pgms. shared by all address spaces. \nCSA -- Common storage area. authorized pgms can request this memory. size is set in IEASYSxx parmlib\nLSQA -- Local system queue area. Individual to each address space.\nprivate area -- can be used by any program. not shared. each addr space has it own.\nSYSTEM -- zOS own purpose"
+  },
+  {
+    "Vendor": "ibm",
+    "component/product": "memory ",
+    "type": "storage",
+    "info": "Authorized programs can access storage in other address spaces by using a z/OS service called cross memory services."
+  },
+  {
+    "Vendor": "ibm",
+    "component/product": "memory ",
+    "type": "storage",
+    "info": "Data space and hyperspace are specific addr spaces used to store only data and not any system or user related pgms. they are og 2GB space.\n\nData spaces and hiperspaces are very similar: they both hold up to 2GBs of data. The difference between them is in how a program accesses data in each. \n\nData space best for manipulating data. slow data transfer.In a data space, programs can access a single byte of data directly using z/OS cross memory services, or another z/OS service called data-in-virtual services.\n\nHyper space- Best for storing data. fast data transfer.In a hiperspace, programs access 4KB blocks of data using special z/OS hiperspace functions."
+  },
+  {
+    "Vendor": "ibm",
+    "component/product": "memory ",
+    "type": "storage",
+    "info": "In a single address space, many tasks share storage. Similarly, all tasks in all address spaces can share common storage such as CSA.\n\nHowever, there may be storage that you want to secure. For example, z/OS security products may keep information in storage that they do not want unauthorized programs to see, or there may be storage that you want to prevent unauthorized programs from accessing, but allow them to browse it.\n\nIn other words, you need a way of protecting storage. In z/OS, this is done using storage keys and fetch protection bits stored in a control field in PSW.\n\nEvery executing task is assigned a key between 0 and 15. Task in KEY 0 are authorized taks and taks in key 8 to 15 are user tasks.\n\nEvery 4K block of memory has a control field of 8 bit.\nFirst storage key(4 bit). When any pgms executing attempts to update the 4K block of storage then the storage key is matched with the executin key of the pgm from PSW. if they are same or the execution key is 0 then the pgm is allowed to update the storage else it is declined.\nFifth bit is the FETCH proteciton bit if it is 0 then no checks are done for accessing the 4k block of memory for reading. if it is 1 then some checking is done for accessing. it is set by authorized pgms when the storage is allocated.\n"
+  },
+  {
+    "Vendor": "ibm",
+    "component/product": "memory ",
+    "type": "storage",
+    "info": "zOS has 255 different subpool of storage in the addr space.\n--each subpool has a specific location that it can be allocated.\n--Each subpool can specifiy FETCH protection yes or no and if it is pageable or not.\n--Each subpool can allow to specify a storage key and some have a fixed key.\n--Subpool can be owned. 0-127 are owned by the task. 129 by the job step. Only authorized pgms can acess subpool above 127. Some of the can be owned by the addr space itself or by the system. \n--the subpool space is released when the specific task or step or address space is ended. teh system subpool is released only with shutdown of zOS.\n--PGMs can specifiy the subpool when reserving the memory using assembler macros such as STORAGE OBTAIN and GETMAIN.\n\nEvery subpool has a number between 0 and 255 (not 15).\n\nUnauthorized programs can only use subpools between 0 and 127: these are normal storage. Only authorized programs can use subpools greater than 127; these specify features including fetch protection, if the storage is in SQA/CSA, and if the owner can be the job step, address space, or system."
+  },
+  {
+    "Vendor": "ibm ",
+    "component/product": "memory ",
+    "type": "virtual",
+    "info": "z/OS hides the real storage from each address space. Each address space uses a virtual address to access storage. z/OS converts this to a real address in physical storage."
+  },
+  {
+    "Vendor": "ibm ",
+    "component/product": "memory ",
+    "type": "virtual",
+    "info": "If zOS needs to free physical storage(Real memory), z/OS will move inactive storage from memory to disk in data sets called page data sets, or flash storage assigned for this purpose."
+  },
+  {
+    "Vendor": "ibm ",
+    "component/product": "memory ",
+    "type": "virtual",
+    "info": "Rather than manage each individual byte, z/OS usually manages storage in 4KB blocks, though in some cases it will manage 1MB or 2GB blocks. These are called pages for virtual storage, frames for physical storage(real memory), and slots for page data sets."
+  },
+  {
+    "Vendor": "ibm ",
+    "component/product": "memory ",
+    "type": "virtual",
+    "info": "When z/OS determines that the amount of unused real storage is too low, it will automatically move some of this real storage to a page data set on disk or flash storage: auxiliary storage. This is called page stealing."
+  },
+  {
+    "Vendor": "ibm ",
+    "component/product": "memory ",
+    "type": "virtual",
+    "info": "z/OS could move all frames from inactive address spaces to auxiliary storage: swapping out the address space. If this address space needed to continue processing, it would first be swapped in: the working set would be moved back to real storage. Such inactive address spaces could be TSO sessions waiting for user input, batch jobs waiting for a tape mount, or a started task waiting a long time for an enqueue."
+  },
+  {
+    "Vendor": "ibm ",
+    "component/product": "memory ",
+    "type": "virtual",
+    "info": "z/OS administrators can also choose to allow page data sets in disk, not flash storage, to be used by programs for temporary disk storage. Programs believe that they are writing to disk, but are really writing to page data sets for enhanced performance. This is called Virtual I/O (VIO).\n\nVIO is excellent for small, temporary data sets that will be discarded at the end of the job.\n\nThe most common way of specifying this is by using the UNIT parameter of a JCL DD statement."
+  },
+  {
+    "Vendor": "ibm ",
+    "component/product": "memory ",
+    "type": "Page datset",
+    "info": "Page datset: Used for Virtual storage puprose\nPLPA : Pageable Link pack area : reserved for the pageable link pack area (PLPA).\nCommom : Common page dataset : reserved for pageable common storage in the CSA and ECSA areas.\nLOCAL : Local page dataset : Suitable for pages other than PLPA and COmmon."
+  },
+  {
+    "Vendor": "ibm ",
+    "component/product": "memory ",
+    "type": "Page datset",
+    "info": "IEASYSxx will have PAGE=(PAGE.PLPA,\n                         Page.common,\n                         page.local)\nand PAGESCM=xxxG\n\nFlash storage assigned to paging is defined in the IEASYSxx parmlib member using the PAGESCM parameter. If it is not specified, all SCM is used for paging."
+  },
+  {
+    "Vendor": "ibm ",
+    "component/product": "memory ",
+    "type": "Page datset",
+    "info": "z/OS needs enough auxiliary storage to hold pages not in real storage. If auxiliary storage fills up, z/OS will issue error messages on the z/OS console. If there is a critical shortage of auxiliary storage, z/OS will also prevent new address spaces from starting until the auxiliary storage shortage is relieved."
+  },
+  {
+    "Vendor": "ibm ",
+    "component/product": "memory ",
+    "type": "page datset",
+    "info": "So, what happens if a task needs to use memory that is paged auxiliary storage? z/OS automatically performs a page fault: pausing task processing while the page is brought back into real storage."
+  },
+  {
+    "Vendor": "ibm ",
+    "component/product": "memory ",
+    "type": "Virtual address",
+    "info": "To locate a byte of memory, a program uses a memory address: a number indicating the location of that byte.\n\nThis number is 24, 31, or 64 bits in length, depending on the addressing mode of the program. Addresses are usually expressed in hexadecimal, such as X'00FBAC18'."
+  },
+  {
+    "Vendor": "ibm ",
+    "component/product": "memory ",
+    "type": "dat - dynamic address translation",
+    "info": "z/OS must convert these virtual addresses to a real address: the address of the byte in real storage. The processing to do this is called dynamic address translation (DAT).\n\nBecause of this virtual storage concept, two address spaces could use the same virtual address, which z/OS will convert to different real addresses, unless this storage is common storage such as CSA or ECSA.\n\nVirtual addressing isolates the virtual address of each address space. Address spaces do not need to worry about what other address spaces are doing with their storage."
+  },
+  {
+    "Vendor": "ibm ",
+    "component/product": "memory ",
+    "type": "dat - dynamic address translation",
+    "info": "zos uses segment tables to convert Virtual Address into real storage address\nfor a 31 bit address \n-- first 11 bits are called segment index : pointing the entry to segment table. the segment table entry points to page table. \n-- the next 8 bits of the 31 bit address point an entry to the page table. each page table has 256 entries.\nthe entry of the page table points to the page holding the data you need. if the page is in real storage then the page table entry points to the frame you need. if the page is in auxialry storage then a page fault is created and the zOS brings the page into real storage.\n-- the last 12 bits show the offset within the page of the byte being addressed.\n\nif 1 MB pages, then the page table is not used. the segment table entry points to 1 mb page and the remaining 20 bits show the offset witnin the page of the byte being addressed."
+  },
+  {
+    "Vendor": "ibm ",
+    "component/product": "memory ",
+    "type": "dat - dynamic address translation",
+    "info": "DAT of 64-bit addresses uses three additional lookup tables: region first, region second, and region third.\nThe first 11 bits of the virtual address point to an entry in the region first table. This entry points to the region second table.\nThe next 11 bits of the virtual address point to an entry in the region second table entry. This entry points to the region third table.\nThe next 11 bits of the virtual address point to an entry in the region third table. This entry points to the segment table.\nThe rest of the DAT works as for 31-bit addresses."
+  },
+  {
+    "Vendor": "ibm ",
+    "component/product": "memory ",
+    "type": "dat - dynamic address translation",
+    "info": "Doing all of this DAT processing every time memory is accessed takes time, and impacts performance. To improve performance, z/OS uses a Translation Look-aside Buffer (TLB). This holds the results of recently performed address translations, avoiding the overhead of repeating these translations."
+  },
+  {
+    "Vendor": "ibm ",
+    "component/product": "memory ",
+    "type": "dat - dynamic address translation",
+    "info": "Almost all tasks running in z/OS use DAT. However, some authorized system tasks cannot use DAT. These tasks use real storage addresses, not virtual addresses. These tasks are sometimes called V=R tasks, as the virtual address is the real address.\n\nThe PSW holds a bit to indicate if DAT is enabled or disabled. For V=R tasks, DAT is disabled."
+  },
+  {
+    "Vendor": "ibm",
+    "component/product": "izws",
+    "type": "error",
+    "info": "Job may end with JCLI error if any of the trakcers are not starte when working in multi system environment."
+  },
+  {
+    "Vendor": "general",
+    "component/product": "security",
+    "type": "Encryption",
+    "info": "Public key cryptography is a cryptographic system that uses a pair of keys. One key is used to encrypt data, and is available to anyone: a public key. The public key cannot decrypt the data.\n\nThe other key is used to decrypt the data encrypted with the public key. This key is kept secure: a private key.\n\nThis is sometimes called Public Key Infrastructure (PKI)."
+  },
+  {
+    "Vendor": "general",
+    "component/product": "security",
+    "type": "Encryption",
+    "info": "Symmetric encryption.the type of encryption that has been used for thousands of years. Both parties have and use the same key to encrypt and decrypt data.\n\nAsymmetric encryption : A public key can be distributed to everyone, but no one will be able to decrypt the data without the private key. Also, each user no longer needs their own separate key.\n\nAs a general rule, symmetric encryption is used when you control both ends, and asymmetric encryption is used when you do not."
+  },
+  {
+    "Vendor": "general",
+    "component/product": "security",
+    "type": "Encryption",
+    "info": "Need for a public key :\nSecure message transmission :  Anyone with a public key can encrypt the data and send a message only users with the matching private key would be able to encrypt the data.\nAuthentication : a communication channel can be encrypted by using a public key. Anyone wanting to communicate on the channel need to use a matching private key to be authenticated and be able to decrypt the communicating channel.\nDigital ID : Using the private key we can encrypty our signature and attach it to a  message. people with mathcing public key can decrypt the signature to ensure that the data has not been tampered with."
+  },
+  {
+    "Vendor": "general",
+    "component/product": "security",
+    "type": "Encryption",
+    "info": "Public key cryptography standards : (PKCS): published by RSA Security during the 1990s. \nPKCS #1 : RSA cryptography standard.\nPKCS #7 : Cryptographic message syntax standard\nPKCX #10: Certificaiton request standard\nPKCS #11: Cryptographic token interface\nPKCS #12: Personal information exchange syntax standard.\n\nThe most important PKCS definitions are now managed through the open standards organization called the Internet Engineering Task Force (IETF) for general development of internet-related definitions."
+  },
+  {
+    "Vendor": "general",
+    "component/product": "security",
+    "type": "Encryption - certificate",
+    "info": "An X.509 digital certificate uses the widely accepted international X.509 public key infrastructure standard, holding encryption keys and information such as the following:\n\nWhat the certificate is for, for example, a server's DNS name or pattern\nThe issuer and a guarantee that the issuer issued the certificate\nWhen it will expire"
+  },
+  {
+    "Vendor": "general",
+    "component/product": "security",
+    "type": "Encryption - certificate",
+    "info": "Each certificate has a certificate authority (CA): an organization that created the certificate. The certificates are digitally signed with the CA's private key, so applications can be certain that the trusted CA created the certificate. Applications have a list of CAs they trust. If they receive a certificate with a public key from a non-trusted source, it can be rejected.\n\nThe internet uses this feature. There are trusted organizations that will provide certificates for various internet service providers. Web browsers have a list of these CAs, and users can add more. If a browser receives a certificate from an authority not in this list, the user is warned."
+  },
+  {
+    "Vendor": "general",
+    "component/product": "security",
+    "type": "Encryption - certificate",
+    "info": "The certificate are mostly in ASCII format and mainframe data is EBCIDIC. so we need to upload the certificate to mainframe in binary format.\n\nx.509 types:\nSingel Binary Certificate : only has details like Issued to / Issue by / Validity period / SHA-256 Finger prints(Certificate and public key).\n"
+  },
+  {
+    "Vendor": "general",
+    "component/product": "security",
+    "type": "Encryption - certificate",
+    "info": "X.507 types: \nCertificate Chain: used mostly in organization with multiple department and having certificates with department and sub department in a single certificate.\n\nRather than having one CA issuing every certificate in a chain, a CA can have subordinate CAs that it trusts. The CA signs the root certificate, the highest certificate in the hierarchy. Subordinate CAs can sign lower certificates.\n\nThis can be used to segregate different servers or departments and reduce the need for a root CA to sign multiple certificates.\n\nThe PKCS #7 standard has rules for doing this."
+  },
+  {
+    "Vendor": "general",
+    "component/product": "security",
+    "type": "Encryption - certificate",
+    "info": "X.507 types :\nBinary certificate package : \nThe previous certificates have supplied a public key. Suppose you want to send a certificate with both the public and private key.\n\nBecause you are sending both public and private keys, you will want to encrypt the contents of the certificate.\n\nThe PKCS #12 standard has rules for doing this."
+  },
+  {
+    "Vendor": "general",
+    "component/product": "security",
+    "type": "Encryption - certificate",
+    "info": "Both the PKCS #7 and PKCS #12 certificate formats may additionally be encoded using an algorithm known as Base64. This converts the binary data into a text format intended for easy transportation via email, FTP, and so on.\n\nWhen generating a Base64 format certificate on z/OS, it will be encoded in EBCDIC. If transferring this to a non-mainframe, you must transfer using ASCII to have the characters correctly re-coded on the receiving platform."
+  },
+  {
+    "Vendor": "ibm",
+    "component/product": "memory ",
+    "type": "SWA",
+    "info": "Scheduler Work Area (SWA) is a crucial, protected area of virtual storage (specifically subpools 236 and 237) used by the Job Entry Subsystem (JES) and MVS allocation to store control blocks and information regarding active jobs and steps"
+  },
+  {
+    "Vendor": "ibm",
+    "component/product": "memory ",
+    "type": "SWA",
+    "info": "All STC generally run with SWA of above for STC. but if we need to start an STC with SWA=BELOW then try the below\n\na. Start xxxxxx as batch job with a dedicated class with SWA as BELOW. or use the below sequence of commands\nB. start xxxxxx with this command sequence:\no issue command $TJOBCLASS(STC),SWA=BELOW  this is a JES MAS change, affects all US Plex1 LPARs\no issue command S TSPACE\no issue command $TJOBCLASS(STC),SWA=ABOVE  this is a JES MAS change, affects all US Plex1 LPARs"
+  },
+  {
+    "Vendor": "Ibm",
+    "component/product": "sadump",
+    "type": "theory",
+    "info": "How to take SADUMP\nNote: DO NOT perform any system reset or other such action on the HMC, or you may lose your dump data.\n        For un-scheduled/emergency ipl, attempt a clean system shutdown before proceeding.\n        If the system is hung, proceed with instructions below.\nContact support before performing step 1.\n\n1.Remove system form plex - from another plex member issue: V XCF,sysx,OFF  (sysx=system to be dumped). Then XXXsysname=sysx    (XXX=prompt #)\n2.From (HMC) VIEW screen highlight appropriate CEC and then click on customize/delete  activation profile. Select PLEXxSADUMPD (x=plex 1 or2). In the LOAD ADDRESS field, put in the appropriate standalone dump program IPL address (see below) for the LPAR being dumped and hit save. \n3.From (HMC) VIEW screen, select GROUPS (click twice)\n4.From GROUPS WORK AREA select CPC IMAGES (click twice)\n5.From CPC IMAGES WORK AREA, select lpar desired for sa dump. (click twice)\n6.From LPAR DETAILS window click once on CHANGE OPTIONS\n7.From CHANGE OBJECT OPTIONS under the list, click once to select proper standalone dump profile.\nNOTE: All have a name of PLEXxSADUMPD  (x = Plex1 Plex2) and are defined within each processor. Each profile has the lpar names included in the profile description.\nPLEXxSADUMPD = Dump to DASD. <= use this one unless instructed otherwise.\n8.Select SAVE. On details window under activation profile category, insure the standalone dump you selected is now listed.\n9.Select SAVE again.\n10.Click once on desired lpar to highlight it from CPC IMAGES WORK AREA.\n11.Select ACTIVATE.\n12.Wait 30 seconds and press “ENTER” on master console to get first message.        \nNote: If you don’t get a message on the master console go to the Operator Messages screen on the HMC and press the Enter key. You should get the message there.        \n13.Respond to dump title information prompt, followed by output device address prompt.\nNote: If  more than 1 output volume is needed use the other SADPL addresses. Dump is complete when you get the messages stating “dumping of real storage completed”.\n14.After dump is completed, repeat steps 3 – 9 to select the proper SYSxLOAD profile to begin the ipl of the system. "
+  },
+  {
+    "Vendor": "Ibm ",
+    "component/product": "IzWS",
+    "type": "Audit",
+    "info": "we can check the audit log and find what udpates are done or not based on the 17 column chars\nJS job stream update.\nAD Application Description\nCP Current Plan\nPER period update\nRD Resource definition udpate(Special resource)\nSRES Special resource update with current plan"
+  },
+  {
+    "Vendor": "xerox",
+    "component/product": "XPAf",
+    "type": "theory",
+    "info": "FOR LCDS the margin is determined by the X-COoRDINATE specified in the BEGIN statement, it can also be affected by the SHIFT parameter.\nfor AFP it is determined by the position in hte medium map of the formdef, and the inline position sepcified on the LND for the data map being used for pagedef.\nXPAF reads VDM spool datasets by using the GETREC FSS API Calls."
+  },
+  {
+    "Vendor": "broadcom",
+    "component/product": "view/deliver",
+    "type": "CHAR",
+    "info": "A report definition can make use of different fonts that would be passed with the report. ensure that you properly make not of the fonts from deliver definition when migrating.\n\nCheck with Broadcom on how to dump them."
+  },
+  {
+    "Vendor": "xerox",
+    "component/product": "xpaf",
+    "type": "fonts",
+    "info": "If we are passing any fonts through view/deliver and not part of pagedef or prset through CHAR setting in report definition then xerox would use the fonts by IBM. look for DD IBMFONTS in the XEROX stc and look for the members in that dataset. If the fonts referred are like ABC,G123 and so on then the tool will look for X0ABC, X0G123 or X1ABC, X1G123 and so on.\nThe transform tool would mostly use X0ABC or X0G123. the number being one, two, three relates to days prior to bounded box fonts. the zero would be bounded box font."
+  },
+  {
+    "Vendor": "lrs",
+    "component/product": "VPS",
+    "type": "fonts",
+    "info": "If we are passing any fonts through view/deliver and not part of pagedef or prset through CHAR setting in report definition then xerox would use the fonts by IBM. look for DD IBMFONTS in the XEROX stc and look for the members in that dataset. If the fonts referred are like ABC,G123 and so on then the tool will look for X0ABC, X0G123 or X1ABC, X1G123 and so on.\nThe transform tool would mostly use X0ABC or X0G123. the number being one, two, three relates to days prior to bounded box fonts. the zero would be bounded box font."
+  },
+  {
+    "Vendor": "lrs",
+    "component/product": "vps",
+    "type": "print",
+    "info": "in the input file the first char tells us what carriage control is being passed to be used for formatting the report.\nthe 2nd chars tells the font type be used a number -- if 1 use font1, if 2 use font 2 and so on. we need to pass the font types with the report definition that it needs to use."
+  },
+  {
+    "Vendor": "broadcom",
+    "component/product": "pmo",
+    "type": "Theory",
+    "info": "Recommendations\n1. Enable PMO/XSYS in all LPARs where CA PMO manages shared PDS libraries.\n2. Avoid compressing PMO‑managed libraries unless PMO/XSYS is active.\n3. Perform a controlled PMO cache refresh in PROD for critical libraries (e.g., TSO.PROCLIB).\n4. Re‑evaluate coexistence strategy for CA PMO and CA PDSMAN during the transition period\nWithout PMO/XSYS:\nPDS updates in one LPAR are not reliably communicated to others."
+  },
+  {
+    "Vendor": "ibm",
+    "component/product": "zosmf",
+    "type": "Identity propogation",
+    "info": "We can enable this feature and when we use REST API, we can ignore to not provide userid and password. this feature would add the id and password of the user running the REST API."
+  },
+  {
+    "Vendor": "ibm",
+    "component/product": "zsam",
+    "type": "theory",
+    "info": "the STC HSIJANLO has the port number and the IP that we can use to connect to the tadz website."
+  },
+  {
+    "Vendor": "ibm",
+    "component/product": "sdsf",
+    "type": "operlog",
+    "info": "OPERLOG - we can invoke using the command LOG O.\nwe can use NEXT and PREV commands\nNext - N nn D|H|M|S  -- N 12 -- move the cursor to the line 12 hrs from your current position. default is HRS \nPREV - P nn D|H|M|S  -- P 1 D -- move the cursor to the line 1 day previous from the current position."
+  },
+  {
+    "Vendor": "ibm",
+    "component/product": "IzWS",
+    "type": "exits",
+    "info": "The operation-initiation exit, EQQUX009, handles the routing of the workload to user-defined destinations."
+  },
+  {
+    "Vendor": "ibm",
+    "component/product": "sysplex",
+    "type": "couple",
+    "info": "SYSPLEX -- to manage sysplex functioning data\nCFRM -- to manage coupling facility resources and structures\nSFM - sysplex failure management - defined how sysplex should handle during a sysplex failure.\nWLM - Workload manager - Holds service policies and used to manage workload performance goals across sysplex\nLOGR - system logger - definitions for log streams and structures used by the zOS system logger.\nARM - Automatic restart manager - manages the automatic restart of registered batch jobs and started tasks\nzOS UNIX - BPXCMDS - manages information for shared file systems(OMVS) across the sysplex."
+  },
+  {
+    "Vendor": "ibm",
+    "component/product": "harsware",
+    "type": "models",
+    "info": "https://www.ibm.com/support/pages/ibm-z-lspr-itrrs#ibmz15T02"
+  },
+  {
+    "Vendor": "ibm",
+    "component/product": "rexx",
+    "type": "execio",
+    "info": "when using EXECIO to write the output to a out file. If the stem has any empty values it might stop writing the output. we can use the option as \"EXECIO\" outline \"DISKW OUTDD (STEM OUT. FINIS\"  -- where OUTLINE needs to the no. of line from the out variable.\n\nIBM explicitly states that when * is used with STEM, EXECIO stops writing when it finds a null value or an uninitialized compound variable."
+  },
+  {
+    "Vendor": "ibm",
+    "component/product": "HCD/IODF",
+    "type": "IODF",
+    "info": "This is what I need \n\n•\tCreate a new work IODF for the new machine\no\tChange the processor type (1.3.C)\n\tUse the prompt menu to choose the new machine type\no\tDelete the old PCHIDs in the channel menu (1.3.C – place an ‘S’ by the CSS you want to work with)\n•\tWhen finished, validate your work IODF file\no\t2.12\n•\tBuild an IOCP Input Dataset\no\t(2.3)\no\tTitle1 – suggest using the mainframe name and date\no\tIOCP Name – yourHLQ.IODFxx.IOCP\n•\tFTP the dataset to your computer in ASCI mode\no\tMake sure to save the file as a .IOCP\n\tIf you want to look at it and make sure it is in ASCI mode, create a copy of the .IOCP file and add .TXT to the file name, it should be able to be opened up in Notepad\no\tEmail the .IOCP file for use in the CHPID Mapping Tool\r"
+  },
+  {
+    "Vendor": "ibm",
+    "component/product": "sysplex",
+    "type": "CFRM",
+    "info": "Size for the common structure types in your CFRM dump is determined by :\n\nLOCK structures (e.g., DSNxxxx_LOCK1) are sized mainly by:\n\nnumber of lock requests in flight\nnumber of DB2 members / IRLMs connected\nlock escalation patterns / deadlock behavior\ngroup concurrency (threads holding locks simultaneously)\n\nLIST / SCA structures (e.g., DSNxxxx_SCA, log structures) are sized mainly by:\n\nnumber of list entries and elements required\nnumber of active connections and rebuild characteristics\nnotification/queue depth, commit and log activity\n\nCACHE / GBP structures are sized mainly by:\n\ngroup buffer pool design\ncross-invalidation rate\nnumber of pages cached and castout dynamics"
+  },
+  {
+    "Vendor": "ibm",
+    "component/product": "sysplex",
+    "type": "CFRM",
+    "info": "the command D XCF,STR -- would list the structure name, current status, when it last allocated and type"
+  },
+  {
+    "Vendor": "ibm",
+    "component/product": "sysplex",
+    "type": "CFRM",
+    "info": "Witin in the STR display, we have Entry / Element that use the storage allocated to the structure\n\nIn a list structure → an entry = a list item\nIn a cache structure → an entry = directory entry\nIn a lock structure → an entry = lock record\n\nElement = actual data storage unit\n\nEntry = pointer / metadata\nElement = actual payload"
+  },
+  {
+    "Vendor": "ibm",
+    "component/product": "hardware",
+    "type": "website",
+    "info": "LSPR -- large systems peroformance report : https://www.ibm.com/support/pages/ibm-z-lspr-itrrs#ibmz15T01   -- we can check this link for the z systems and its models and capacity."
+  },
+  {
+    "Vendor": "ibm",
+    "component/product": "education",
+    "type": "website",
+    "info": "mainframeskillsdepot.ibm.com"
+  },
+  {
+    "Vendor": "ibm",
+    "component/product": "dr",
+    "type": "pprc",
+    "info": "PPRC is the replication engine, Metro/Global Mirror are replication modes, and GDPS is the brain that turns replicated disks into a recoverable sysplex"
+  },
+  {
+    "Vendor": "ibm",
+    "component/product": "Ansible",
+    "type": "Theory",
+    "info": "ansible-navigator also functions as a drop-in replacement for ansible-playbook and other ansible-* utilities."
+  },
+  {
+    "Vendor": "microsoft",
+    "component/product": "vscode ",
+    "type": "commands",
+    "info": "If you want to get the cursor on all CHARACTERS that you searched for use CTRL+D or CTRL+SHIFT+L"
+  },
+  {
+    "Vendor": "microsoft",
+    "component/product": "vscode ",
+    "type": "commands",
+    "info": "CTRL + SPACE -- activates intellisense -- we need to have the extensions for specific languages installed for it to work. if we press CTRL+SPACE then we will get some help info for each option/sugestion that is provided."
+  },
+  {
+    "Vendor": "microsoft",
+    "component/product": "vscode ",
+    "type": "commands",
+    "info": "we can use CTRL+L to comment a string in VSCODE. Based on the file extension it would add a specific character for commenting."
+  },
+  {
+    "Vendor": "microsoft",
+    "component/product": "vscode ",
+    "type": "commands",
+    "info": "to open the control selection panel CTRL+SHIFT+P"
+  },
+  {
+    "Vendor": "microsoft",
+    "component/product": "vscode ",
+    "type": "extensions",
+    "info": "Some useful extensions : COde spell checker / code runner / REST Client / live share"
+  },
+  {
+    "Vendor": "microsoft",
+    "component/product": "git",
+    "type": "command",
+    "info": "git init -- intialize a repository with MAIN/AMSTER branch\ngit add -- to move the code from local folder to staging area(index)\ngit commit -- to move the code from staging area to git repository.\ngit checkout -- jump between different versions of the project. from repository to the local folder. based on the sha values of the commit.\ngit status -- give you the status in the local folder that you are currently in.\ngit config --global user.name <name>  -- to provide a name to be attached to files during the commit process.\ngit config --global user.email <email> -- to provide an eamil to be attached to files during the commit process.\ngit log -- provides the history of commits"
+  },
+  {
+    "Vendor": "microsoft",
+    "component/product": "git",
+    "type": "command",
+    "info": "git commit -a -m \"message\" -- to add the files to staging and then commit them with the same command.\ngit brach bracnh1 -- creates a branch with name as branch1\ngit checkout branchname -- make the brach as the head of the flow.\ngit merge branchname -- to merge the branch files into the main branch"
+  },
+  {
+    "Vendor": "microsoft",
+    "component/product": "git",
+    "type": "command",
+    "info": "git remote add origin https://github.com/.....  this would create a branch connection between the local repository in the person PC to the repository in the git-hub for the same project.\ngit push -u origin main -- to copy the contents from the local repository branch MAIN to git-hub repository.\ngit pull -- pull all the changes from git-hub repository to the local repository for that branch."
+  },
+  {
+    "Vendor": "microsoft",
+    "component/product": "git",
+    "type": "theory",
+    "info": "git stores objects : blobs(files), trees(folders), unattended text(created but not committed), commit(changes to the prod - git.repository)\nls .git/object -- to list the objects in the branch that you are currently working with.\nls .git/objects/cc -- to list the specific folder object. it give the SHA value of that file.\ngit cat-file -t filename sha1#  -- it tells us what is the object type.\ngit cat-file -p filenamesha1# -- it provides the actions on that object."
+  },
+  {
+    "Vendor": "broadcom",
+    "component/product": "Vision ",
+    "type": "theory",
+    "info": "the pgm QUIKJOB is used by the JCL's using CA-Vision product."
+  },
+  {
+    "Vendor": "ibm",
+    "component/product": "Ansible",
+    "type": "theory",
+    "info": "Ansible play book is now called as Ansible navigator.\nfrom the VSCODE terminal issue the command ansible-navigator  to get into the Ansible navigator screen.\nto run a ansible code directrly from VSCODE terminal issue the command \"ansible-navigator run ./test.yml\" at the terminal command prompt.\nto run the code in ansible-navigator screen \":run ./test.yml\""
+  },
+  {
+    "Vendor": "ibm",
+    "component/product": "SA+Netview",
+    "type": "Theory",
+    "info": "NetView = infrastructure / execution layer : event detection + command execution framework\nSA z/OS = policy-driven automation logic layer : decision engine + orchestration logic\n\nSA z/OS cannot run standalone\nIt executes within the NetView address space\nIt uses NetView services (console, automation, messaging, REXX, pipes, autotasks)\n\n\"z/OS event / message / failure\" --> \"NetView detects it\" --> \"SA evaluates policy\" --> \"SA decides action (restart / stop / ignore)\" --> \"NetView executes command\""
+  },
+  {
+    "Vendor": "ibm",
+    "component/product": "SA+Netview",
+    "type": "Theory",
+    "info": "SA z?OS will run as an automaiton application within the netview adress space.\nSA z/OS processor operations can be used to control and monitor target systems that run either z/OS, z/VM, z/VSE, or Linux on z Systems.\nAs a single point of control NetView-based product, SA z/OS provides a full range of system management functions by delivering high-end automated solutions. These include being able to monitor, control, and automate a wide range of system elements that include both hardware and software resources.\n\nBoth hardware and software resources can be monitored and controlled directly from a NetView console or by using the IBM Service Management Unite (SMU) Automation web-based GUI. Monitoring can also be performed with Tivoli Netcool/OMNIbus."
+  },
+  {
+    "Vendor": "ibm",
+    "component/product": "SA+Netview",
+    "type": "Theory",
+    "info": "Netview - enables single point of monitor / control of resources : Interactions with the Automation Agent.\nSA zOS running under netview can use the below products through REST API\n\nSMU -- System management suite automation -- User friendly web based. The SMU server can be installed on either a Linux on System z or Linux on System x that uses an end-to-end (E2E) adapter to communicate with automated domains. Not just monitor the status we can also issue MVS commands from SMU.\nTivoli Netcool/Omnibus -- provide Service level monitoring in real time.\n\nAlerting with SA zOS can be send to an eamil or sms if SA IOM(integrated operations management is configured)\n\nSA z/OS also provides an Operations REST server component, which makes use of NetView's REST interface and can enable the exploitation of automated resources through an API."
+  },
+  {
+    "Vendor": "ibm",
+    "component/product": "SA+Netview",
+    "type": "Theory",
+    "info": "Monitoring can be done through SDF -- Status display facility. it is also from Netview panels. "
+  },
+  {
+    "Vendor": "ibm",
+    "component/product": "SA+Netview",
+    "type": "Theory",
+    "info": "SA z/OS has 2 components -- system operations(SysOPS) and processor operations(ProcOPS)\nSysOps work at monitoring and controlling system and middleware components, for example, CICS, Db2, and IMS across individual systems or across sysplexes. Runs as a netview applicaiton. used for start, stop tasks.\nProcOps are used to monitor and control processor hardware and provide a connection between the focal point processor to a target processor. Provide a link from MF to the SE or HMC. (IPL, POR..).\nProcOps focal point can be used to get an interface to BCPI that enables processor hardware operation without the need of external network unit. the target processor can be a zVM guest or coupling facility lpar or an external mainframe."
+  },
+  {
+    "Vendor": "ibm",
+    "component/product": "SA+Netview",
+    "type": "Theory",
+    "info": "Netview autoamtion works with 2 tasks:\nAutomation Agent -- Runs under netview. Agent monitors all the tasks and relays the status back to manager.\nAutomation Manager -- Manager checks the policy and takes decision based on the status shared. it can also respond to commands issue in netview or SMU (System management suite) automation. it directs the agents to stop or start the task. Outiside of netview.\nAutomaiton Manager Status check:\nObserved Status : The current status of the resource\nAutomation Status : What automation state the resource is in\nDesired Status : the goal of the resource whether available or unavailable\nStartability Status : check on if a resoruce can be started or not.\nCompound Status :\nHealth Status : Used by automaiton manager."
+  },
+  {
+    "Vendor": "ibm",
+    "component/product": "SA+Netview",
+    "type": "Theory",
+    "info": "Creating and running automation rules.\nA customizaiton dialog is used to define the policies that govern the automation udner SysOPS or ProcOPS. the Automation agent and manager need access to these policy files inorder to automate.\nPDB : THe policy database contains the data model of the application worklaod and policy definitions\nSOCNTL : System operations configuration file : it is compiled dataset of PDB use by the automation agent and manager. can be moved to all the systems where the agent/manager are running."
+  },
+  {
+    "Vendor": "ibm",
+    "component/product": "SA+Netview",
+    "type": "Theory",
+    "info": "Policy Tips:\nResource for a particular applicaiton can be grouped and monitored and measured. referred as an APG - Application group. the member can be distributed on multiple lpars in a sysplex.\nGroups can be \nSystem APplication : \nSysplex application :\n\nThere are 3 different group states :\nBAsic : the status is available when all the members of the group are available\nMove : Just one member available makes the group avaiable and other can be started as needed.\nServer : Any number is ok for the group to be marked as available."
+  },
+  {
+    "Vendor": "ibm",
+    "component/product": "SA+Netview",
+    "type": "Theory",
+    "info": "Different relation ships between resources :\nForceDOwn :\nHASMONITOR :\nMakeAavailable :\nMakeUnavailable :\nPrepAvailable :\nPrepUnavailable :\nHasparent :\nHasPassiveParent :\nPeerOF :\nExternally :"
+  },
+  {
+    "Vendor": "ibm",
+    "component/product": "SA+Netview",
+    "type": "Theory",
+    "info": "While having resources being automatically stopped and started is one benefit of SA z/OS's features, another strength is that it can perform more complex tasks. SA z/OS is able to understand the interdependencies between resources. Based on its goals to meet a resource's desired status, it can compute a sequence of actions that need to be taken to achieve the required outcome."
+  },
+  {
+    "Vendor": "ibm",
+    "component/product": "SA+Netview",
+    "type": "Tasks",
+    "info": "The automation related tasks needs to be started under SUB=MSTR so they can manager JES3, vlf, lla also under automation.\nAutomation Manager task :\nSubsystem interface task : communication with Netview\nAutomation Agent task :"
+  },
+  {
+    "Vendor": "ibm",
+    "component/product": "zOS",
+    "type": "command",
+    "info": "we can cahnge the started task name when issuing a start command. if we have a proc as SYSVIEW and we want to start is as SYSV20 then we can issue the command \"S SYSVIEW,JOB=SYSV20\" this starts the task SYSV20 and not as SYSVIEW"
+  },
+  {
+    "Vendor": "ibm",
+    "component/product": "sa+Netview",
+    "type": "commands",
+    "info": "Automation of resources can be manually overridden by operators that need to stop or start those resources. By using the NetView Command Dialogs panel and entering the INGREQ request command, or through the INGLIST command"
+  },
+  {
+    "Vendor": "ibm",
+    "component/product": "sysplex",
+    "type": "xcf",
+    "info": "XCF GROUPS : XCF groups are defined by the specific multisystem application software running on z/OS, rather than by a single universal configuration file.\n-  For IBM CICS, groups are defined using the XCFGROUP system initialization parameter in the SIT (System Initialization Table) or as a startup job override.\n-  Configuration Members: For NetView, groups are defined using the XCF.GROUPNUM statement in the CNMSTYLE configuration member\n\nPurpose :\nInter-System Communication: Members within the same XCF group can send and receive data across logical partitions (LPARs) or CPCs, enabling parallel processing\nResource Partitioning: Separating applications into distinct XCF groups allows administrators to segregate message traffic and assign specific signaling paths and buffer sizes based on each group's unique needs"
+  },
+  {
+    "Vendor": "ibm",
+    "component/product": "rexx",
+    "type": "sdsf",
+    "info": "/* REXX */\n/* REQUIRES SDSF ACCESS */\n/* ENABLE SDSF (MUST BE IN REXX ENVIRONMENT, NOT TSO) */\nRC = ISFCALLS('ON')\nIF RC <> 0 THEN DO\n   SAY \"ISFCALLS FAILED RC=\" RC\n   EXIT RC\nEND\n/* OPTIONAL: SET OWNER/PREFIX */\nISFOWNER = \"*\"\nADDRESS SDSF\n/* GO TO ST PANEL (ACTIVE STATUS) */\n\"ISFEXEC ST\"\n/* CHECK RETURN */\nIF RC <> 0 THEN DO\n   SAY \"ERROR ACCESSING SDSF ST PANEL\"\n   EXIT 8\nEND\n/* GET NUMBER OF ROWS */\nROWS = ISFROWS\nISFCOLS = \"JNAME   JOBID    OWNER    QUEUE\"\n/*SAY ISFCOLS*/\nSAY \"JOBNAME%OWNER%STATUS\"\n/* LOOP THROUGH ALL ENTRIES */\nDO I = 1 TO ROWS\n   JNAME   = JNAME.I\n   JOBID   = JOBID.I\n   OWNER   = OWNERID.I\n   STATUS  = QUEUE.I\n   /* FILTER ONLY ACTIVE/EXECUTING */\n   IF STATUS = \"EXECUTION\" | STATUS = \"ACTIVE\" THEN DO\n      SAY JNAME||\"%\"||OWNER||\"%\"||STATUS\n   END\nEND\nEXIT 0"
+  },
+  {
+    "Vendor": "ibm",
+    "component/product": "hardware",
+    "type": "CBU",
+    "info": "IBM Capacity Backup (CBU) records—which allow users to temporarily unlock dormant or standby processor and memory capacity for disaster recovery—are maintained in specialized internal memory on the hardware itself.\n\nHardware Storage: CBU capacity records are digitally stored within the System Controller or the Support Element (SE) (a specialized hardware service processor) of the mainframe or server"
+  },
+  {
+    "Vendor": "ibm",
+    "component/product": "utility",
+    "type": "JCl",
+    "info": "JCL to copy a dataset to another dataset using the PGM=SORT utility\n//STEP1    EXEC PGM=SORT\n//SYSOUT   DD SYSOUT=*\n//SYSPRINT DD SYSOUT=*\n//SORTIN   DD DSN=INPUT.DATASET,DISP=SHR\n//INS      DD DSN=OUTPUT.DATASET,\n//             DISP=(NEW,CATLG,DELETE),\n//             UNIT=SYSDA,\n//             SPACE=(CYL,(5,5),RLSE),\n//             DCB=(RECFM=FB,LRECL=80)\n//SYSIN    DD *\n  OPTION COPY\n  OUTFIL FNAMES=INS\n/*\n"
+  },
+  {
+    "Vendor": "ibm",
+    "component/product": "sysplex",
+    "type": "theory",
+    "info": "Difference between sysplex and parallel sysplex\n\nA sysplex = group of z/OS systems (LPARs/CPCs) cooperating via XCF, couple datasets, and common timing. Base Sysplex (basic sysplex) → no Coupling Facility\n\nA Parallel Sysplex = sysplex + Coupling Facility (CF). High-speed data sharing using CF. Locking, caching, list structures. True parallel workload execution across systems"
+  },
+  {
+    "Vendor": "compuware",
+    "component/product": "Fileaid",
+    "type": "theory",
+    "info": "PGM=FILEAID and PGM=DUMPER both belong to fileaid "
+  },
+  {
+    "Vendor": "SAS",
+    "component/product": "SAS",
+    "type": "License",
+    "info": "We need to submit a RENEW job with an input member containing the license.\nThe sample RENEW jcl is provied in the install CNTL library."
+  },
+  {
+    "Vendor": "SAS",
+    "component/product": "SAS",
+    "type": "ISPF",
+    "info": "Look for the member CLSTENW0 in the CNTL library. Generally that is the CLIST to invoke SAS under TSO."
+  },
+  {
+    "Vendor": "BMC",
+    "component/product": "Compware",
+    "type": "License",
+    "info": "Check for the CMSC started task.\nIdentify the LCM00 member being referred in the JCL or the LCM00 dd output to identify a VSAM file that contains license.\nWe need to identify the updated CWLMA rexx member that would bring up the Compuware lIcense management tool.\nUse option 3 to IMPORT any new license. (we can create a new VSAM file and import the new licese and update the CMSC task LCM parmlib member to point to the new VSAM file).\n\nWe can use Option 0 in the CWLMA panels to create a new VSAM file."
+  },
+  {
+    "Vendor": "ibm",
+    "component/product": "hardware",
+    "type": "device",
+    "info": "Different types of Hardware connected to a system:\nOSA--> Open Systems Adapter – mainframe network interface card used to connect z/OS to LAN/TCP-IP networks (Ethernet) with high-speed data transfer. --> in IODF: CHPID type OSD/OSA\nOSAD --> OSA-Express CHPID type operating in QDIO mode – optimized high-performance data movement interface for IP traffic between z/OS and network --> in IODF: CHPID type OSD/OSA\n3270-X --> Extended 3270 display device type – represents enhanced 3270 terminal sessions (e.g., TN3270/console displays) for user/operator interaction.--> in IODF: UNIT type 3270 / X\n2032 --> IBM communication/controller unit (older front-end/cluster controller) used to manage terminal or peripheral device connectivity to the host. Legacy comm controller—rare today; replaced by OSA/modern networking--> in IODF:CONTROL UNIT type 2032\n3490 --> Magnetic tape subsystem – used for sequential data storage such as backup, archival, and batch processing workloads --> in IODF: UNIT = 3490, CU = 3490/3590 family\n3390B --> DASD base device for Parallel Access Volume (PAV) – represents the primary disk volume handling actual I/O requests. --> in IODF: UNIT = 3390, role = PAV base\n3390A --> DASD alias device for PAV – logical alias mapped to a 3390B base to improve concurrent I/O throughput. --> in IODF: UNIT = 3390, role = PAV alias\n3380B --> DASD base device (older 3380 family) supporting PAV concept – primary physical disk handling I/O operations. --> in IODF:  UNIT = 3380, role = PAV base\n3380A --> DASD alias for 3380B – logical alias device used to increase parallel access paths to the same physical volume. --> in IODF:UNIT = 3380, role = PAV alias"
+  },
+  {
+    "Vendor": "ibm",
+    "component/product": "console",
+    "type": "commands",
+    "info": "D C  -- list all the consoles defined to CONSOLxx\nD EMCS  -- list all the software based consoles that are active on the system.\nD EMCS,F,CN=xxxxx to list more details of an EMCS console that is active."
+  },
+  {
+    "Vendor": "Chicagosoft",
+    "component/product": "QuickreF",
+    "type": "License",
+    "info": "To find the current license file. \nInvoke the Quick ref panels, generally they do a TSO QW. and issue the command QINFO and check for \"DSN of License key file: \" and take the dataset name.\nGet the new license key file from the vendor. Upload it in binary and dcb as provided vendor.\nUpdate the QW clist being invoke to point to the new license key or rename the existing license key dataset identified from QINFO command ouptut and rename the new file to it."
+  },
+  {
+    "Vendor": "BMC",
+    "component/product": "BMC",
+    "type": "License",
+    "info": "to check for the current licensed products for BMC product or BMC acquired products other than compuware. we can use the below JCL.\n//FDRLIC   JOB (ACCT),'LIST FDR LICENSE',CLASS=A,MSGCLASS=X\n//*------------------------------------------------------------------*\n//* PURPOSE: LIST ALL LICENSED FDR COMPONENTS AND EXPIRATION DATES    *\n//*------------------------------------------------------------------*\n//STEP1    EXEC PGM=BLFSEC3B,PARM='   '\n//* NOTE: LEAVE EXACTLY THREE BLANK SPACES IN THE PARM FIELD ABOVE\n//STEPLIB  DD DISP=SHR,DSN=your.product.BBLINK\n//SYSLIB   DD DISP=SHR,DSN=your.product.BMCPSWD\n//SYSPRINT DD SYSOUT=*,DCB=RECFM=FBA\n//SYSUDUMP DD SYSOUT=*\n//SYSIN    DD *\nxxx LIST   -- list the license status and for which system.\nxxx PSWD xxxx xxxx xxxx xxxx  NEWCPUID=\n/*\n\nxxx is the code for diifferent products from BMC\n\nhttps://bmcapps.my.site.com/casemgmt/sc_KnowledgeArticle?sfdcid=kA33n0000008mfgCAA&type=FAQ"
+  },
+  {
+    "Vendor": "BMC",
+    "component/product": "BMC",
+    "type": "License",
+    "info": "BMC product codes:\nCXB     BMC Compuware FDRARC\nCTB     BMC Compuware FDRSNP INSTANT\nCRY     BMC Compuware FDRCRYPT\nCPK     BMC Compuware FASTCPK\nBTB     BMC Compuware FDRINC\nDRP     BMC Compuware FDRDRP\nUQB     BMC Compuware FDRBCV INSTANT\nDRB     BMC Compuware FDRREORG\nWQB     BMC Compuware FATSCOPY\nTQB     BMC Compuware FDRHDS INSTANT\nDTB     BMC Compuware FDRFSH INSTANT\nFTB     BMC Compuware FDREPORT\nFD5     BMC Compuware FDRFDR\nERA     BMC Compuware FDRERASE\nPVM     BMC Compuware FDRPASVM\nABR     BMC Compuware FDRABR\nMOV     BMC Compuware FDRMOVE\nITB     BMC Compuware FDRAPPL\nPAS     BMC Compuware FDRPAS\nUse code with caution.Would you like me to map these specific product codes to their corresponding mainframe storage functionalities or look up additional codes for you?"
+  },
+  {
+    "Vendor": "Dino",
+    "component/product": "VelociRaptor",
+    "type": "License",
+    "info": "Check for the member VRAPAUTH to update the code from Vendor and submit the jcl to update the license."
+  },
+  {
+    "Vendor": "ibm",
+    "component/product": "JES3",
+    "type": "theory",
+    "info": "simultaneous peripheral operations online (spool) program\n Houston Automatic Spooling Priority (HASP) system\nthose with more than one CPU used Attached Support Processor (ASP).\n\nASP upgraded to the IBM version called JES3\nWhile HASP users opted for JES2.\n"
+  },
+  {
+    "Vendor": "ibm",
+    "component/product": "JES2",
+    "type": "theory",
+    "info": "simultaneous peripheral operations online (spool) program\n Houston Automatic Spooling Priority (HASP) system\nthose with more than one CPU used Attached Support Processor (ASP).\n\nASP upgraded to the IBM version called JES3\nWhile HASP users opted for JES2.\n"
+  },
+  {
+    "Vendor": "ibm",
+    "component/product": "JES3",
+    "type": "theory",
+    "info": "In a JES3plus multisystem sysplex, one processor is called the global processor, and the others are called local processors. Up to 32 processors can be run on a JES3plus complex: One global and 31 locals, each communicating using the cross-system coupling facility (XCF). Note that a complex may also be referred to as a JESplex."
+  },
+  {
+    "Vendor": "Ibm",
+    "component/product": "Jes3",
+    "type": "theory",
+    "info": "An advantage of using JE3plus across a multisystem sysplex is its ability to transfer global functions to a local processor in the event of a problem arising in the global processor.\n\nThis transfer is called dynamic system interchange (DSI) and can be performed if the local processor available to take global processor ownership has the same workload capability as the previous global processor."
+  },
+  {
+    "Vendor": "Ibm",
+    "component/product": "Jes3",
+    "type": "theory",
+    "info": "Remote job processing (RJP) allows you to enter a job into the JES3plus job stream via an input source connected to the global processor by a data link. The input source can be device attached to the mainframe or coming through SNA-VTAM. Both Systems Network Architecture (SNA) and binary synchronous communication (BSC) are supported protocols for remote job processing (RJP)"
+  },
+  {
+    "Vendor": "Ibm",
+    "component/product": "Jes3",
+    "type": "theory",
+    "info": "JES3plus also provides for network job entry (NJE), whereby users at one location can send jobs, output, commands, and messages to another JES3plus location or even a non-JES3plus location. Using this feature JES3 can communicate with JES2 systems also.\n\nNJE is not the same as RJP since RJP is used to connect users directly to the computer from a remote location and not through another computer acting as a node."
+  },
+  {
+    "Vendor": "ibm",
+    "component/product": "DR",
+    "type": "GDPS",
+    "info": "Running GDPS in separate LPARs ensures the automation software remains isolated from production workloads, preventing resource contention and ensuring continuous availability during a disaster"
+  },
+  {
+    "Vendor": "ibm",
+    "component/product": "jes3",
+    "type": "theory",
+    "info": "JES3 program in the global processor is divided into parts called Dynamic Support Programs(DSPs). Each DSP is a schedulable unit used to read job input, process job and write job output."
+  },
+  {
+    "Vendor": "ibm",
+    "component/product": "jes3",
+    "type": "theory",
+    "info": "JES3 uses initialization statements to identify what resources are available to it and how to use those resources.\nJES3 initialization statements may provide site-specific standards; however, a system operator can manipulate these using JES3 commands.\nInstallation exit routines can be used to customize how JES3 performs certain functions."
+  },
+  {
+    "Vendor": "ibm",
+    "component/product": "jes3",
+    "type": "theory",
+    "info": "All DSPs have SEs(schedular elements) that are to be processed. there are 4 different SE's, which are stored in JCT (Job control table). JCT is written to DASD. All jobs under JES3 will have JCT.\nC/I SE\nMain SE\nOutserv SE\nPurge"
+  },
+  {
+    "Vendor": "Ibm",
+    "component/product": "Jes3",
+    "type": "theory",
+    "info": "\"Stages of Job processing:\n1. INput -- (Reader phase and control statement processing phase). JCT is created.\n2. Converter/Interpretor  -- Coversion/error checking -- (C/I phase, prescan phase, post scan phase)--job's device, volume, and data set requirements are taken from the job's DD statements in the JCL by the converter/interpreter (C/I) DSP. \n"
+  },
+  {
+    "Vendor": "Ibm",
+    "component/product": "Jes3",
+    "type": "theory",
+    "info": "3. Main device scheduling  -- allocation of resources -- three type of allocaiton\nJOB setup  -- All resources are allocated.\nHigh water mark setup  -- identify the highest number of resoruce needed step wise and allocated the hight no. of resoruces for all steps.\nExplicit setup -- Resources are allocated only when teh job starts execution phase.\n4. Genarlized main scheduling -- allocation of resources -- processor selection.\n5. Job execution -- \n6. Ouptut Service -- output sent to printer/puncher/TSO\n7. Job purge --\n\nExcept for execution all other phases are processed through global system even for the local systems in the JES3PLEX\""
+  },
+  {
+    "Vendor": "ibm",
+    "component/product": "jes3",
+    "type": "theory",
+    "info": "Both JES3plus and WLM can use class limits that are specified on the CLASS initialization statement, such as the following:\n\nTDEPTH – limits the number of jobs that can run in the entire sysplex.\nMDEPTH – limits the number of jobs in this class that can run on a particular system.\nMLIMIT – limits the number of jobs in this class that can run on a particular system based on the number of jobs running on that system in another class.\nTLIMIT – limits the maximum number of jobs of other classes that can be scheduled into the total JES3plus complex and still allow jobs in this job class to be scheduled."
+  },
+  {
+    "Vendor": "`",
+    "component/product": "jes3",
+    "type": "theory",
+    "info": "Output phase:\nQ=BDT --> MVS/BDT work queue is used for SNA/NJE networking jobs or networking system output streams.\nQ=WTR --> job output wiating to be processed by JES3\nQ=HOLD --> job output waiting to be processed by non jes3 managed devices like TSO, external writer, SAPI(system application programming interface).\nQ=TCP"
+  },
+  {
+    "Vendor": "`",
+    "component/product": "jes3",
+    "type": "theory",
+    "info": "The input service driver (ISDRVR) DSP creates the JCT for each job.\nThe converter/interpreter service consists of three phases: the converter/interpreter (C/I) phase, the prescan phase, and the postscan phase.\nOutput service's primary function is to queue, schedule, and write output.\nWLM selects jobs within a service class based on the main service arrival time, job priority does not influence if the job is selected to run first.\nWLM-managed initiators do not take up either JES3plus job numbers or spool space.\nJES3plus can be used to display, cancel, and alter a job's attributes.\nInput service is made up of two phases: the reader phase and the control statement processing phase.\n\nThe ISDRVR DSP creates the JCT for each job.\n\nTwo parts make up CI: the converter service and the interpreter service.\n\nThe converter service does convert JCL into internal text, which is checked for syntax errors.\n\nFor every job, there is always only one JCT.\n\nThe JVT is created during the prescan phase while the JST is created during postscan using both the JVT and IJS tables."
+  },
+  {
+    "Vendor": "`",
+    "component/product": "jes3",
+    "type": "theory",
+    "info": "The JCT will always contain the job name, number, priority, class, origin, and scheduler elements (SEs).\nFrom the global processor, the input service routine accepts and queues all jobs entering the system.\n\nIf a job passes through C/I without errors, the interpreter places its scheduler control blocks in the SWA.\n\nThe JST(Job summary table) contains the I/O requirements such as unit, volume, and data set requirements that are used to allocate job resources.\n\nMDS can be set to support z/OS either partially or fully. The advantages of having MDS operating in a full capacity include: resources are set up before job execution, jobs waiting for resources do not cause idle initiators, waiting jobs only take up queue space, and jobs are not held up in executions due to contentions.\n\nHigh-watermark setup is the JES3plus setup option that will locate the job step that will use the most volumes at once and allocate that number of devices for the whole job.\nExplicit setup allows the installation to specify the data sets requiring setup, and JES3plus will determine the number of devices to reserve.\n\nBoth system select and system verify are used by MDS to ensure the availability of SMS-managed resources.\nThe CLASS statement can have up to 255 job class definitions."
+  },
+  {
+    "Vendor": "ibm",
+    "component/product": "sadump ",
+    "type": "theory",
+    "info": "to create SADUMP dasd dataset we can use the utility AMDSADDD. When we execute this rexx it would give us options to DEFINE, CLEAR, REALLOC of a dump capturing dataset. we can provide multiple volume and also the name of the dataset. if dataset name is not provided it would default to SYS1.SADMP"
+  },
+  {
+    "Vendor": "ibm",
+    "component/product": "zOS",
+    "type": "V3.2",
+    "info": "What new in zOS V3.2\nAI enabled features -- WLM management, JES2 optimizations. on z17 we have new telium processor.\nSDSF new feature for WLM, RACF. intergration with python "
+  },
+  {
+    "Vendor": "ibm",
+    "component/product": "mvs",
+    "type": "command",
+    "info": "command to list the command character D OPDATA"
+  },
+  {
+    "Vendor": "ibm",
+    "component/product": "izws",
+    "type": "theory",
+    "info": "to stop the schedule being released, we can use option 9.1 to stop the schedule or We can update config parm like CONGS1T8 or specific to your system with JOBSUBMIT(NO) "
+  },
+  {
+    "Vendor": "ibm",
+    "component/product": "dasd",
+    "type": "theory",
+    "info": "to stop all tape activity on the system.\nHsend hold migration(auto) recall(tape)\nHsend hold backup(auto dscommand(tape))\n"
+  },
+  {
+    "Vendor": "ibm",
+    "component/product": "TSO",
+    "type": "theory",
+    "info": "command to print a dataset to another dataset.\nprintds dsname('abc.xyz.123') TODSNAME('abc.xyz.456')"
+  },
+  {
+    "Vendor": "broadcom",
+    "component/product": "sysview",
+    "type": "theory",
+    "info": "Here are some information to get a CPU performance report: \n\nhttps://docops.ca.com/ca-sysview/15-0/en/reporting/using-ca-explore-report-writer/sample-reports/mvs-sample-reports\n\nYou can check the MVS Sample Reports: \nMVS003: Plot in horizontal format CPU utilization on 1-hour intervals.\nMVS004: Plot a scatter consisting of job residency on the vertical axis and job CPU on the horizontal axis.\nMVS005: Plot in vertical format CPU utilization on 15-minute intervals.\n"
+  },
+  {
+    "Vendor": "ibm",
+    "component/product": "sa+Netview",
+    "type": "message",
+    "info": "*4208 AOF603D ENTER AUTOMATION OPTIONS OR 'R' (RE-DISPLAY) - DOMAIN is that comes as the first message to start ipl under automation."
+  },
+  {
+    "Vendor": "ibm",
+    "component/product": "HCD/IODF",
+    "type": "HCD/IODF",
+    "info": "after we create any IODF dataset to make it as production we need to user : option 2: activate modify and then option 1 : build production IODF file."
+  },
+  {
+    "Vendor": "ibm",
+    "component/product": "ipl",
+    "type": "wait code",
+    "info": "if the ipl is going into wait code B1 then check if you are using a work iodf file by mistake. you need to create a prod iodf file everytime you create/cahnge anything in the iodf."
+  },
+  {
+    "Vendor": "ibm",
+    "component/product": "jes3",
+    "type": "shutdown",
+    "info": "*return to stop JES3"
+  },
+  {
+    "Vendor": "ibm",
+    "component/product": "zos ",
+    "type": "psw",
+    "info": "In z/Architecture mode, the PSW is 16 bytes (128 bits). A disabled wait PSW generally looks like this format:X'00020000 00000000 00000000 00wwrrrr'\nBits 0–63: Used for system control flags, machine state, and the next instruction address (typically all zeros in a disabled wait state).\nBits 64–95: First half of the address field (typically zeros).\nBits 96–127: Second half of the address field, broken down as follows:\nww (Bits 100–107): The 2-digit hexadecimal wait state code.rrrr (Bits 108–127): \nThe 4-digit hexadecimal reason code that provides granular context about the error."
+  },
+  {
+    "Vendor": "ibm",
+    "component/product": "zos",
+    "type": "software",
+    "info": "to check if all the required ptfs are avilable for a z16 box compatibility.\n\nSET BDY(GLOBAL) .\nREPORT MISSINGFIX ZONES(target_zone)\nFIXCAT(IBM.Device.Server.z16*)"
+  },
+  {
+    "Vendor": "ibm",
+    "component/product": "zOS",
+    "type": "z16",
+    "info": "https://www.newera.com/INFO/083022_Z16_SRB.pdf"
+  },
+  {
+    "Vendor": "ibm",
+    "component/product": "sysplex",
+    "type": "commands",
+    "info": "DISPLAY XCF,COUPLE,TYPE=ALL  -- list informaiton about all the couple dataset defined to SYSPLEXxx"
+  },
+  {
+    "Vendor": "ibm",
+    "component/product": "zos",
+    "type": "commands",
+    "info": "DS QD,xxxx --- command to check the status of the device wrt to hardware."
+  },
+  {
+    "Vendor": "ibm",
+    "component/product": "HCD/IODF",
+    "type": "HCD/IODF",
+    "info": "once we create any IODFxx dataset that would be a work IODF by default. even if we dont have WORK in the name.\nto check the IODFxx that you have updated. you can use the option 2.12 from HCD to check for any errors in the WORK IODFxx.\nto convert a work IODFxx into prod IODFxx. Use the option 2.1 to use the work IODF and create a prod IODFxx."
+  },
+  {
+    "Vendor": "ibm",
+    "component/product": "HCD/IODF",
+    "type": "HCD/IODF",
+    "info": "to get a dump of IOCP from the IODFxx dataset.\nUse the option \n6.5 - Export I/O definition file.\nProvide the NICKNAME as your * generally and leave the NODEID. \nThe work IODF gets created with USERID.EXPORTED.IODFxx\n"
+  },
+  {
+    "Vendor": "ibm",
+    "component/product": "zos",
+    "type": "syslog",
+    "info": "SYSLOG backup : check for message :  IEE043I -- it would tell to which output queue the syslog is being written."
+  },
+  {
+    "Vendor": "ibm",
+    "component/product": "zos ",
+    "type": "syslog",
+    "info": "we can issue a command WRITELOG L or W L in the system. This would force the SYSLOG to be cut till that point and write it to the output queue in class of L. If we do W C -- then it write to output class of C. \n\nIf you dont provide the class in the write log command then the sytem would chekc for \nLOGCLASS parm in IEASYSxx or JES2 init parm deck. In JES3 we dont have it in JES3INIT deck.\n\nThen we can use the below procedure to copy the output to a dataset.\n\n//LOGWTR   PROC\n//IEFPROC  EXEC PGM=IASXWR00,REGION=4096K,PARM='PL'\n//IEFRDER  DD DSN=SYS1.SYSLOG.ARCHIVE,DISP=(MOD,CATLG),\n//         UNIT=3390,SPACE=(CYL,(10,10),RLSE),\n//         DCB=(LRECL=137,RECFM=VBA,BLKSIZE=27998)\n//         PEND"
+  },
+  {
+    "Vendor": "ibm",
+    "component/product": "zos ",
+    "type": "xternal writer",
+    "info": "We can use the below JCL to copy any output that is avilable in outclass to a dataset. In the below example it would print/offload the jobs in output class of A. The first DD name IEFRDER needs to be the same, so the JCL identifies the output dataset that it needs to copy to.\n\n//LOGWTR   PROC\n//IEFPROC  EXEC PGM=IASXWR00,REGION=4096K,PARM='PA'\n//IEFRDER  DD DSN=SYS1.JOBOUT.ARCHIVE,DISP=(MOD,CATLG),\n//         UNIT=3390,SPACE=(CYL,(10,10),RLSE),\n//         DCB=(LRECL=137,RECFM=VBA,BLKSIZE=27998)\n//         PEND"
+  },
+  {
+    "Vendor": "ibm",
+    "component/product": "HCD/IODF",
+    "type": "HCD/IODF",
+    "info": "To update/change  device type to 3380, 3390 or so.\n1. Select option 1: define, modify.\n2. Select option 5 : I/O Devices.\n3. Find the the device addres to be updated.\n4. Select the device address : S\n5. Select the device that you want to update or the from options to work with single i/o devices \n6. then you can change device type on each device in that group.\n7. after changing the device group ensure the esoterics are correct. we can get to them selecting C action on the group and then hitting enter twice ... we will see all the defined and then hit select the lpar and then hit enter in the next panel it would list the esoterice. check them and update YES or NO based on the requirement."
+  },
+  {
+    "Vendor": "ibm",
+    "component/product": "ipl",
+    "type": "theory",
+    "info": "if you are looking for messages related to start of a job or task after IPL. Look for message ID's\nIEF695I\nIEF196I\nAOF570I -- if SA+Netview automation is being used.\n"
+  },
+  {
+    "Vendor": "IBM",
+    "component/product": "IPL",
+    "type": "Tasks",
+    "info": "DURING ipl the following tasks might be started through the tcpip profile. SSHD, OMPROUTE, JES3WTR, tn3270, tpiserv"
+  },
+  {
+    "Vendor": "ibm",
+    "component/product": "sysplex",
+    "type": "command",
+    "info": "V XCF,system_name,OFFLINE"
+  },
+  {
+    "Vendor": "ibm",
+    "component/product": "HCD/IODF",
+    "type": "HCD/IODF",
+    "info": "To add a new set of devices.\n1. Select option 1 : define, modify.\n2. Select option 4 : control unit.\n3. define a new control unit. We can use add like option if we already have similar devices.\n4. come back to define modify \n5. select option 5 : I/O devices.\n6. define the new I/o devices. we cna use add like option if we already have similar devies."
+  },
+  {
+    "Vendor": "Ibm",
+    "component/product": "zsam",
+    "type": "theory",
+    "info": "We need to run the jobs that would scan our libraries for product installs. Every now and then to ensure that TADz identifies all the products that are installed on the system and tracks its usage."
+  },
+  {
+    "Vendor": "Ibm",
+    "component/product": "JES3",
+    "type": "theory",
+    "info": "CHeck point datasets : JES3 check point datasets are mentioned in the JES3 proclib. Each global system will have its own check point datasets. if the systems are global and local then checkpoint datasets are shared."
+  },
+  {
+    "Vendor": "ibm",
+    "component/product": "utility",
+    "type": "idcams",
+    "info": "//STEP1 EXEC PGM=IDCAMS\n//SYSPRINT DD SYSOUT=*\n//SYSIN DD *\n  LISTCAT ALIAS CATALOG('catalog name')\n  LISTCAT USERCATALOG\n  LISTCAT ALL CATALOG('catalog name')\n  LISTCAT ENTRIES(dataset_name) VOLUME\n/*"
+  },
+  {
+    "Vendor": "ibm",
+    "component/product": "network",
+    "type": "theory",
+    "info": "WE can connect to tso TCPIP, VTAM, TSO majnode or we can connect from OSA-ICC to VTAM, TSO Majnode.\nto chekc for OSA-ICC check the Majnode that is defined as ICC and identify the group name for the defined LU.\nin the PCOM setting provide the OSAIP, LU group name and port generally 3270 and try to connect. you should be able to connec to TSO.\nD net,majnodes -- list all majnodes. look for any LOC* or *icc* nodes in general for ICC\nd net,id=*LOC*,E or d net,id=*icc*,E or what ever the majnode for the OSA-ICC connection is.\nwe can see all the LU that are available and we can acitvate or deactivate and connect.\n\nwhen we launch the PCOM it would let us know the LU name in the first screen that we get."
+  },
+  {
+    "Vendor": "ibm",
+    "component/product": "racf",
+    "type": "command",
+    "info": "RVARY LIST -- if you have access then it would list the RACF databases primary and secondary"
+  },
+  {
+    "Vendor": "ibm",
+    "component/product": "jes3",
+    "type": "theory",
+    "info": "If we have JES3 global and local systems. we need to make the local systems online to the global system only them JES3 would be completely up on the local systems. we need to give the command *V localsysname,ON on the global system.\nTo check the status of system issue teh command *I,MAIN=ALL"
+  },
+  {
+    "Vendor": "ibm",
+    "component/product": "rmf",
+    "type": "command",
+    "info": "start RMF gatherer : F RMF,START III,MEMBER(xx)"
+  },
+  {
+    "Vendor": "ibm",
+    "component/product": "ftp ",
+    "type": "access",
+    "info": "EZB.PORTACCESS.sysname.** --in SERVAUTH class --  is needed to get a FTP data connection for any file transfers. or we may get errors like \"425 Can't open data connection\""
+  },
+  {
+    "Vendor": "ibm",
+    "component/product": "SA+Netview",
+    "type": "Theory",
+    "info": "For the tasks being monitored by SA+netview we have FORWARD and BACKWARD relations defined.\nIf TASKA needs to be started after TASKB then TASKB become FORWARD relation for TASKB.\nif TASKC would be started after TASKA then TASKC becomes BACKWORD relation with TASKA."
+  },
+  {
+    "Vendor": "Ibm",
+    "component/product": "SA+Netview",
+    "type": "commands",
+    "info": "/%DSPINFO taskname -- to get details of the task.\n/%INGINFO taskname/APL/systemname -- list the forward and backward relation ships.\n/%INGREQ taskname START/STOP -- to start or stop a task.\n/%SETSTATE taskname UP/DOWN -- to change the status of a task."
+  },
+  {
+    "Vendor": "ibm",
+    "component/product": "network",
+    "type": "command",
+    "info": "D TCPIP,,NETSTAT,ALLCONN  -- to check for all the active connections on the system. we can see which task is talking to which IP.\n\nThe same can be done with IKJEFT01 pgm \n-- NETSTAT ALLCONN to get the entire list.\n-- NETSTAT ALLCONN (CLEINT taskname -- to get the detials on a specific task."
+  },
+  {
+    "Vendor": "ibm",
+    "component/product": "zOS",
+    "type": "manual",
+    "info": "https://www.ibm.com/docs/en/zos-basic-skills\n\nhttps://www.ibm.com/docs/en/zos/3.1.0"
+  },
+  {
+    "Vendor": "ibm",
+    "component/product": "utility",
+    "type": "idcams",
+    "info": "Job to catalog an already exsisitng dataset to a different catalog of our choice.\n//step1 exec pgm=idcams\n//syprint dd sysout=*\n//SYSIN DD *\n  DEFINE NVSAM -\n         (NAME('name of the dataset') -\n          DEVICETYPES(3390) -\n          VOLUMES(volume where teh dataset is allocated)) -\n          CATALOG('new catalog name')\n/*"
+  },
+  {
+    "Vendor": "microsoft",
+    "component/product": "powershell",
+    "type": "command",
+    "info": "to test the connection to an IP and a specific port.\nTest-NetConnection -ComputerName 192.168.1.1 -Port 443"
+  },
+  {
+    "Vendor": "ibm",
+    "component/product": "sysplex",
+    "type": "CFRM",
+    "info": "Job to create new CFRM couple datasets.\n//FORMAT   EXEC PGM=IXCL1DSU                                            00032000\n//SYSPRINT DD   SYSOUT=*                                                00033000\n//SYSIN    DD   *                                                       00034000\n  DEFINEDS SYSPLEX(LNC)                                                 00035002\n           DSN(SYS1.XXXXXX.Z16.CFRM001) VOLSER(SYSCFA)                  00036002\n           MAXSYSTEM(8)                                                 00037000\n           CATALOG                                                      00038001\n          DATA TYPE(CFRM)                                               00039000\n               ITEM NAME(POLICY) NUMBER(5)                              00040000\n               ITEM NAME(CF) NUMBER(4)                                  00050000\n               ITEM NAME(STR) NUMBER(600)                               00060000\n               ITEM NAME(CONNECT) NUMBER(64)                            00070000\n               ITEM NAME(SMREBLD) NUMBER(1)                             00080000\n               ITEM NAME(SMDUPLEX) NUMBER(1)                            00090000\n               ITEM NAME(ASYNCDUPLEX) NUMBER(1) /*               @L3A*/ 00110000\n     DEFINEDS SYSPLEX(LNC)                                              00120002\n              DSN(SYS1.XXXXXX.Z16.CFRM002) VOLSER(SYSCFB)               00130002\n              CATALOG MAXSYSTEM(8)                                      00140002\n          DATA TYPE(CFRM)                                               00150000\n               ITEM NAME(POLICY) NUMBER(5)                              00160000\n               ITEM NAME(CF) NUMBER(4)                                  00170000\n               ITEM NAME(STR) NUMBER(600)                               00180000\n               ITEM NAME(CONNECT) NUMBER(64)                            00190000\n               ITEM NAME(SMREBLD) NUMBER(1)                             00200000\n               ITEM NAME(SMDUPLEX) NUMBER(1)                            00210000\n               ITEM NAME(ASYNCDUPLEX) NUMBER(1) /*               @L3A*/ 00230000\n/*                                                                      00240000\n"
+  },
+  {
+    "Vendor": "ibm",
+    "component/product": "zoau",
+    "type": "commands",
+    "info": "https://medium.com/@pradipto01/zoau-dataset-commands-the-complete-z-os-shell-cookbook-8b21cc68f766 "
+  },
+  {
+    "Vendor": "ibm",
+    "component/product": "dasd",
+    "type": "datasets",
+    "info": "We cannot move or catalog or delete STORAGED MANAGED DATASETS that are created on one LPAR from another lpar eventhough the datasets are shared based on the ACS rules for certain qualifies."
+  },
+  {
+    "Vendor": "ibm",
+    "component/product": "JES3",
+    "type": "log",
+    "info": "If we have JES3 global and local systems. JES3 forces all messages after the JES3 task is up on local system to the global system. so, the syslog on LOCAL system will not show any messages after JES3 starts. We need to check the GLOBAL system SYSLOG to see all the messages flowing. \n\nuse the SDSF command SYSID xxxx to switch from one syslog to anotehr system syslog when in XCF group (JEs3 using XCF)."
+  },
+  {
+    "Vendor": "ibm",
+    "component/product": "sdsf",
+    "type": "theory",
+    "info": "use the SYSID xxx command to switch the logs between sysplex systems."
+  },
+  {
+    "Vendor": "ibm",
+    "component/product": "jes3",
+    "type": "command",
+    "info": "*F F FSS=fssname,ST=Y  -- give the FSS name to be restarted.\n\nCIFSS is a sub system that is internal to JES3 that does the converter task. if the JES3CI FSS is not up and running then the submitted jobs would be strick in CI phase and will not run."
+  },
+  {
+    "Vendor": "ibm",
+    "component/product": "network",
+    "type": "theory",
+    "info": "If we want to check the OSA-ICC definiton. we need to check in HMC. \nLaunch the HMC; \nGo to TASK INdex; \nSearch for OSA and we should be able to see OSA ADvanced facilities;\ncheck for OSC type CHPID and select it.\nIn actions select \"CARD SPECIFIC ADVANCED FACILITIES\"\nand then select \"DISPLAY active session configuration\"\nWe will be able to see the LU Names being used by OSA."
+  },
+  {
+    "Vendor": "ibm",
+    "component/product": "network",
+    "type": "issue",
+    "info": "Issue : Not able to connect to TSO through regular IP and PORT. Were ablet to connect through OSA IP, LU name and port.\nInvestigation Activities : Check the following setup for any wrong configuration.\nOSA and IP address configuration validation.\nTCP/IP routing and OMPROUTE verification.\nTN3270 and PCOM connectivity testing.\nVTAM definition review and startup validation.\nPageant and AT-TLS configuration review.\nSSL/TLS handshake diagnostics.\n\nAT-TLS/Pageant policy processing was validated. Enable Tracing to checking for additional diagnostic and erro messages. \nSSL return code 455 consistently appeared during connection attempts.\nInvestigation determined that ICSF/CSF cryptographic services were not available on the affected environment.\nThe absence of ICSF services prevented proper TLS processing and caused the connection failures observed throughout testing.\nResolution\nStarted Pageant (Policy Agent) services.\nStarted CSF/ICSF cryptographic services.\nRefreshed AT-TLS policies.\nRevalidated encrypted TN3270 connectivity.\nSuccessfully established session manager connectivity and validated access paths.\n \nSecurity / Encryption Changes\nPageant started and refreshed.\nAT-TLS policies reloaded.\nICSF/CSF services started.\nTLS processing validated.\n"
+  },
+  {
+    "Vendor": "ibm",
+    "component/product": "jes3",
+    "type": "commands",
+    "info": "if JES3CI is not started.\n*s JSS\n*F F FSS=CIFSS,DSPC=(5.4)\n*F F FSS=CIFSS,ST=Y"
+  },
+  {
+    "Vendor": "ibm",
+    "component/product": "ispf",
+    "type": "log dataset",
+    "info": "there is a SPFLOG DD that gets allocated and collectes some logs. By default it would be userid.SPFLOGx.LIST (x = 0 to 9) if this dataset is migrated and we are not able to recall. then we need to use ALLOC command on the READY prompt to allocated SPFLOG dd to a new dataset that we intend to use.\n\nALLOC FI(ISPLOG) DA('userid.TEMP.SPFLOG') NEW TRACKS SPACE(1,1) RECFM(VB) LRECL(137) BLKSIZE(27998)\n\nif you want to reuse it again and again.. once it is allocated for the first time\nALLOC FI(ISPLOG) DA('userid.TEMP.SPFLOG') SHR"
+  },
+  {
+    "Vendor": "ibm",
+    "component/product": "hsm",
+    "type": "command",
+    "info": "Console command to recall a dataset using hsm.\nF hsm,recall syslogr.a24x.some.thing"
+  },
+  {
+    "Vendor": "ibm ",
+    "component/product": "sysplex",
+    "type": "logrec",
+    "info": "Logrec logstream and structure.\n//*\n//DEFINE EXEC PGM=IXCMIAPU\n//SYSPRINT DD SYSOUT=*\n//SYSIN DD *\nDATA TYPE(LOGR)\nDEFINE STRUCTURE NAME(LOGRECSTRUCTURE)\nLOGSNUM(1)\nAVGBUFSIZE(4068)\nMAXBUFSIZE(4096)\nDEFINE LOGSTREAM NAME(SYSPLEX.LOGREC.ALLRECS)\nSTRUCTNAME(LOGRECSTRUCTURE)\nHLQ(SYSPLEX)\nLS_SIZE(200)\nSTG_DUPLEX(YES)\nDUPLEXMODE(COND)\nHIGHOFFLOAD(80)\nLOWOFFLOAD(0)\n/*"
+  },
+  {
+    "Vendor": "ibm",
+    "component/product": "dasd",
+    "type": "commands",
+    "info": "We need to disable CBRUXENT on the main system when copying tapes to a target system during a system replication.\n\nD SMS,OAM -- check the status.\nLIBRARY DISABLE,CBRUXENT -- to disable the tape activity.\nD SMS,OAM"
+  },
+  {
+    "Vendor": "ibm",
+    "component/product": "sysplex",
+    "type": "logr",
+    "info": "if we want to delete a logstream and we have deleted the logstream datasets without delteing the entry in the LOGR policy then use the command\nSETLOGR FORCE,DELETE,LSN=logstream name --  this will delete the logstream entry.\n\nwe need to do the same for all the logstream name under a given structure. only then we cna delete the logstream.\n\nwe can list all the logstreams attached to structures by issuing teh command\nD logger,str\n\nSETLOGR FORCE,DISCONNECT,LSN=logstream name"
+  },
+  {
+    "Vendor": "ibm",
+    "component/product": "JES3",
+    "type": "Writers",
+    "info": "JES3 writer works a shost print to send emails or print data to destinations.\n/F JES3WTR,DISPLAY ALL -- displays all the active JES3 writer on the sytem."
+  },
+  {
+    "Vendor": "ibm",
+    "component/product": "db2",
+    "type": "commands",
+    "info": "Note: Please add prefix as (-subsystem name) before every command and  run the command on the lpar where they reside\neg: -PR2A DIS DDF  to be run on SY1\n\ncommands to verify\nDIS GROUP  -- All db2 members should be ACTIVE\nDIS DDF  -- DDF status should be STARTED\nDISPLAY DATABASE(*) SPACENAM(*) RESTRICT(GRECP, LPL) LIMIT(*) -- Should not show anything\nSTOP DB2 -- to stop db2 gracefully\nSTART DB2 -- to start db2 gracefully\n"
+  },
+  {
+    "Vendor": "rocket",
+    "component/product": "projcl",
+    "type": "License",
+    "info": "F DSSISTC,LICENSE  -- to check license is active or not."
+  },
+  {
+    "Vendor": "ibm",
+    "component/product": "rexx",
+    "type": "syntax",
+    "info": "We can use external tools like DYNASTEP in REXX to allocate datasets dynamically like STEPLIB. similar to LIBDEF.\nsyntax if using DYNASTEP product DYNASTEP FILE(STEPLIB) DA('dataset name') SHR\nkeyword can be DYNASTEP or DS"
+  },
+  {
+    "Vendor": "ibm",
+    "component/product": "network",
+    "type": "command",
+    "info": "TSO NETSTAT CONFIG -- to check the TCPIP configuration"
+  },
+  {
+    "Vendor": "ibm",
+    "component/product": "network",
+    "type": "command",
+    "info": "TSO HOMETEST -- to test the entire nework setup."
+  },
+  {
+    "Vendor": "ibm",
+    "component/product": "sysplex",
+    "type": "logr",
+    "info": "listing the logr logstream definition.\n//LISTUTL1 JOB MSGLEVEL=(1,1),NOTIFY=&SYSUID,MSGCLASS=A\n//STEP1 EXEC PGM=IXCMIAPU\n//SYSPRINT DD SYSOUT=*\n//SYSIN DD *\n  DATA TYPE(LOGR) REPORT(YES)\n  LIST LOGSTREAM NAME(CICSA.TEST.DFHLOG) DETAIL(YES)\n  LIST STRUCTURE NAME(DFHLOG_CICSA) DETAIL(YES)\n  LIST LOGSTREAM NAME(SYSPLEX.*) DETAIL(YES)\n  LIST STRUCTURE NAME(OPER*) DETAIL(YES)\n  DELETE LOGSTREAM NAME(**)  -- delete a logstream\n  DLEETE structure name(**) -- delete a structure in LOGR and not CFRM this can be done only after all the logstreams attached to structure are deleted.\n/*\n"
+  },
+  {
+    "Vendor": "ibm",
+    "component/product": "DASD",
+    "type": "command",
+    "info": "To add any new tapes to VTS. we need to keep the task CBRUXENT -- issue the command LIBRARY DISABLE,CBRUXENT -- we can check the status by doing D SMS,OAM."
+  },
+  {
+    "Vendor": "ibm",
+    "component/product": "cl/ss",
+    "type": "theory",
+    "info": "we can use START xxxx to get a specific defined app."
   }
 ]
